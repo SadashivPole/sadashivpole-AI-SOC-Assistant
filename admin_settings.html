@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Admin Settings | AI SOC Assistant
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- Font Awesome 6 -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6kB1pn9u2nlKQ+zqTRb52ZS4Q+B/0LEZq1Y7Z2P7Qix4r8m+3xYkgw==" referrerpolicy="no-referrer" rel="stylesheet"/>
+  <!-- Theme CSS (global) -->
+  <link href="style.css" rel="stylesheet"/>
+  <!-- Page-specific CSS -->
+  <link href="admin_settings.css" rel="stylesheet"/>
+ </head>
+ <body style="font-family: 'Poppins', var(--font-sans);">
+  <!-- Header (Common Component) -->
+  <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#2563EB;">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMain" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#sidebarMain" data-bs-toggle="offcanvas" type="button">
+     <i class="fas fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./admin_settings.html">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/56/56'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:28px;"/>
+     <span>
+      Admin Settings
+     </span>
+    </a>
+    <form class="d-none d-md-flex mx-auto" role="search" style="max-width: 460px;">
+     <input aria-label="Search" class="form-control form-control-sm" placeholder="Search settings, integrations, logs" type="search"/>
+    </form>
+    <ul class="navbar-nav ms-auto align-items-center">
+     <li class="nav-item me-2 d-none d-md-block">
+      <button class="btn btn-sm btn-warning text-dark" id="btnTestAll">
+       <i class="fas fa-vial me-1">
+       </i>
+       Test Connections
+      </button>
+     </li>
+     <li class="nav-item me-2 d-none d-md-block">
+      <button class="btn btn-sm btn-outline-light" id="btnSaveAll">
+       <i class="fas fa-save me-1">
+       </i>
+       Save
+      </button>
+     </li>
+     <li class="nav-item dropdown me-2">
+      <a aria-expanded="false" class="nav-link" data-bs-toggle="dropdown" href="#" id="adminAlerts" role="button">
+       <i class="fas fa-bell">
+       </i>
+      </a>
+      <ul aria-labelledby="adminAlerts" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        Notifications
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         Health check: All systems operational
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         Pending config changes
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="nav-item dropdown">
+      <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" id="userMenuAdmin" role="button">
+       <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/user/48/48'" src="https://www.gravatar.com/avatar?d=mp" style="width:24px;height:24px;"/>
+       <span>
+        admin@example.com
+       </span>
+      </a>
+      <ul aria-labelledby="userMenuAdmin" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        Administrator
+       </li>
+       <li>
+        <a class="dropdown-item" href="#security">
+         <i class="fas fa-user-shield me-2">
+         </i>
+         Security
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#system-health">
+         <i class="fas fa-heartbeat me-2">
+         </i>
+         System Health
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         <i class="fas fa-sign-out-alt me-2">
+         </i>
+         Logout
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <div class="d-flex" style="min-height: calc(100vh - 48px);">
+   <!-- Sidebar (Common Component) -->
+   <aside class="d-flex flex-column flex-shrink-0 bg-light border-end" id="sidebarMain" style="width: 280px; min-height: 100vh;">
+    <div class="p-3 border-bottom d-flex align-items-center">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/brand/64/64'" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:32px;"/>
+     <div>
+      <div class="fw-semibold" style="color:#2563EB;">
+       Admin &amp; Integrations
+      </div>
+      <small class="text-muted">
+       Administrator
+      </small>
+     </div>
+    </div>
+    <div class="px-3 py-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/admin/72/72'" src="https://www.gravatar.com/avatar?d=mp" style="width:36px;height:36px;"/>
+      <div>
+       <div class="fw-semibold">
+        admin@example.com
+       </div>
+       <small class="text-muted">
+        Administrator
+       </small>
+      </div>
+     </div>
+    </div>
+    <nav class="flex-grow-1 overflow-auto pt-2">
+     <ul class="nav nav-pills flex-column mb-auto" id="adminNav">
+      <li class="nav-item">
+       <a class="nav-link active d-flex align-items-center" href="./admin_settings.html">
+        <i class="fas fa-cogs me-2">
+        </i>
+        Admin Settings
+       </a>
+      </li>
+      <li>
+       <a aria-controls="siemMenu" aria-expanded="true" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#siemMenu" role="button">
+        <i class="fas fa-server me-2">
+        </i>
+        SIEM Integrations
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse show ps-4" id="siemMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#splunk">
+           <i class="fas fa-network-wired me-2">
+           </i>
+           Splunk
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#elastic">
+           <i class="fas fa-database me-2">
+           </i>
+           Elasticsearch
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+      <li>
+       <a aria-controls="soarMenu" aria-expanded="false" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#soarMenu" role="button">
+        <i class="fas fa-plug me-2">
+        </i>
+        SOAR Integration
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse ps-4" id="soarMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#soar-config">
+           <i class="fas fa-tools me-2">
+           </i>
+           Configuration
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#playbooks-map">
+           <i class="fas fa-clipboard-list me-2">
+           </i>
+           Playbooks Mapping
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+      <li>
+       <a aria-controls="systemMenu" aria-expanded="false" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#systemMenu" role="button">
+        <i class="fas fa-heartbeat me-2">
+        </i>
+        System Health
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse ps-4" id="systemMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#status">
+           <i class="fas fa-thermometer-half me-2">
+           </i>
+           Service Status
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#nlp">
+           <i class="fas fa-robot me-2">
+           </i>
+           NLP Model
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#logs">
+           <i class="fas fa-file-alt me-2">
+           </i>
+           System Logs
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+      <li>
+       <a aria-controls="securityMenu" aria-expanded="false" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#securityMenu" role="button">
+        <i class="fas fa-user-shield me-2">
+        </i>
+        Security &amp; Access
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse ps-4" id="securityMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#rbac">
+           <i class="fas fa-users-cog me-2">
+           </i>
+           RBAC
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#retention">
+           <i class="fas fa-archive me-2">
+           </i>
+           Audit Retention
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+     </ul>
+    </nav>
+    <div class="mt-auto p-3 border-top small d-flex justify-content-between">
+     <a class="text-decoration-none" href="#test-connections">
+      <i class="fas fa-vial me-1" style="color:#F59E0B;">
+      </i>
+      Test
+     </a>
+     <a class="text-decoration-none" href="#apply">
+      <i class="fas fa-save me-1" style="color:#F59E0B;">
+      </i>
+      Save
+     </a>
+    </div>
+    <style>
+     #sidebarMain .nav-link { color:#374151; border-radius:.375rem; }
+        #sidebarMain .nav-link:hover { background-color: rgba(37,99,235,.08); color:#111827; }
+        #sidebarMain .nav-link.active { background-color: rgba(37,99,235,.12); color:#2563EB; font-weight:600; }
+    </style>
+   </aside>
+   <!-- Main Content -->
+   <main class="flex-grow-1" style="min-width:0;">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Breadcrumb and quick nav -->
+     <nav aria-label="breadcrumb" class="mb-3 breadcrumb">
+      <ol class="breadcrumb mb-0">
+       <li class="breadcrumb-item">
+        <a href="./performance_dashboard.html">
+         Dashboard
+        </a>
+       </li>
+       <li class="breadcrumb-item">
+        <a href="./investigation_console.html">
+         Investigation Console
+        </a>
+       </li>
+       <li class="breadcrumb-item">
+        <a href="./audit_log.html">
+         Audit Log
+        </a>
+       </li>
+       <li aria-current="page" class="breadcrumb-item active">
+        Admin Settings
+       </li>
+      </ol>
+     </nav>
+     <!-- Page Header -->
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <i class="fa-solid fa-sliders text-primary">
+       </i>
+       <h1 class="page-title mb-0">
+        Admin Settings
+       </h1>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <a class="btn btn-light btn-sm" href="./login_page.html">
+        <i class="fa-solid fa-arrow-left me-1">
+        </i>
+        Back to Login
+       </a>
+       <a class="btn btn-info btn-sm" href="./performance_dashboard.html">
+        <i class="fa-solid fa-chart-line me-1">
+        </i>
+        Performance
+       </a>
+      </div>
+     </div>
+     <!-- System feedback area -->
+     <div class="alert alert-info d-none" id="feedbackArea" role="alert">
+      Loading current configurations...
+     </div>
+     <!-- Integrations Management Panel -->
+     <section class="app-card mb-4" id="integrationsPanel">
+      <div class="card-header">
+       <div class="title d-flex align-items-center gap-2">
+        <i class="fa-solid fa-plug text-primary">
+        </i>
+        <span class="widget-title">
+         Integrations Management
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-warning btn-sm text-dark" id="btnTestAllTop">
+         <i class="fa-solid fa-vial me-1">
+         </i>
+         Test All
+        </button>
+        <button class="btn btn-primary btn-sm" id="btnSaveAllTop">
+         <i class="fa-solid fa-save me-1">
+         </i>
+         Save All
+        </button>
+       </div>
+      </div>
+      <div class="card-body">
+       <ul class="nav nav-tabs" id="integrationTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+         <button aria-controls="siemTab" aria-selected="true" class="nav-link active" data-bs-target="#siemTab" data-bs-toggle="tab" id="tab-siem" role="tab" type="button">
+          SIEM
+         </button>
+        </li>
+        <li class="nav-item" role="presentation">
+         <button aria-controls="soarTab" aria-selected="false" class="nav-link" data-bs-target="#soarTab" data-bs-toggle="tab" id="tab-soar" role="tab" type="button">
+          SOAR
+         </button>
+        </li>
+       </ul>
+       <div class="tab-content pt-3" id="integrationTabsContent">
+        <!-- SIEM Tab -->
+        <div aria-labelledby="tab-siem" class="tab-pane fade show active" id="siemTab" role="tabpanel">
+         <div class="row g-3">
+          <!-- Splunk Configuration -->
+          <div class="col-12">
+           <div class="card border rounded-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+             <div class="d-flex align-items-center gap-2">
+              <img alt="Splunk" class="rounded" src="https://picsum.photos/seed/splunk/28/28"/>
+              <strong>
+               Splunk Configuration
+              </strong>
+             </div>
+             <div>
+              <span class="badge bg-secondary" id="splunkStatusBadge">
+               Unknown
+              </span>
+             </div>
+            </div>
+            <div class="card-body">
+             <div class="row g-3">
+              <div class="col-md-6">
+               <label class="form-label" for="splunkUrl">
+                Splunk API Endpoint
+               </label>
+               <input class="form-control" id="splunkUrl" placeholder="https://splunk.example.com:8089" required="" type="url"/>
+               <div class="form-text">
+                Must be a valid URL.
+               </div>
+              </div>
+              <div class="col-md-6">
+               <label class="form-label" for="splunkToken">
+                Splunk API Token
+               </label>
+               <div class="input-group">
+                <input class="form-control" id="splunkToken" placeholder="••••••••" required="" type="password"/>
+                <button aria-label="Toggle token visibility" class="btn btn-light toggle-visibility-icon" data-target="splunkToken" type="button">
+                 <i class="fa-regular fa-eye">
+                 </i>
+                </button>
+               </div>
+               <div class="form-text">
+                Token is masked; required.
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+             <div class="small text-muted">
+              Last test:
+              <span id="splunkLastTest">
+               Never
+              </span>
+             </div>
+             <div class="d-flex gap-2">
+              <button class="btn btn-warning text-dark" disabled="" id="btnTestSplunk">
+               <i class="fa-solid fa-vial me-1">
+               </i>
+               Test Connection
+              </button>
+              <button class="btn btn-primary" disabled="" id="btnSaveSIEM">
+               <i class="fa-solid fa-save me-1">
+               </i>
+               Save SIEM Settings
+              </button>
+             </div>
+            </div>
+           </div>
+          </div>
+          <!-- Elasticsearch Configuration -->
+          <div class="col-12">
+           <div class="card border rounded-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+             <div class="d-flex align-items-center gap-2">
+              <img alt="Elasticsearch" class="rounded" src="https://picsum.photos/seed/elastic/28/28"/>
+              <strong>
+               Elasticsearch Configuration
+              </strong>
+             </div>
+             <div>
+              <span class="badge bg-secondary" id="elasticStatusBadge">
+               Unknown
+              </span>
+             </div>
+            </div>
+            <div class="card-body">
+             <div class="row g-3">
+              <div class="col-md-6">
+               <label class="form-label" for="elasticUrl">
+                Elasticsearch API Endpoint
+               </label>
+               <input class="form-control" id="elasticUrl" placeholder="https://elastic.example.com:9200" required="" type="url"/>
+               <div class="form-text">
+                Must be a valid URL.
+               </div>
+              </div>
+              <div class="col-md-6">
+               <label class="form-label" for="elasticKey">
+                Elasticsearch API Key
+               </label>
+               <div class="input-group">
+                <input class="form-control" id="elasticKey" placeholder="••••••••" required="" type="password"/>
+                <button aria-label="Toggle key visibility" class="btn btn-light toggle-visibility-icon" data-target="elasticKey" type="button">
+                 <i class="fa-regular fa-eye">
+                 </i>
+                </button>
+               </div>
+               <div class="form-text">
+                Key is masked; required.
+               </div>
+              </div>
+             </div>
+            </div>
+            <div class="card-footer d-flex justify-content-between align-items-center">
+             <div class="small text-muted">
+              Last test:
+              <span id="elasticLastTest">
+               Never
+              </span>
+             </div>
+             <div class="d-flex gap-2">
+              <button class="btn btn-warning text-dark" disabled="" id="btnTestElastic">
+               <i class="fa-solid fa-vial me-1">
+               </i>
+               Test Connection
+              </button>
+              <button class="btn btn-primary" disabled="" id="btnSaveElastic">
+               <i class="fa-solid fa-save me-1">
+               </i>
+               Save SIEM Settings
+              </button>
+             </div>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div>
+        <!-- SOAR Tab -->
+        <div aria-labelledby="tab-soar" class="tab-pane fade" id="soarTab" role="tabpanel">
+         <div class="card border rounded-2">
+          <div class="card-header d-flex justify-content-between align-items-center">
+           <div class="d-flex align-items-center gap-2">
+            <i class="fa-solid fa-robot text-primary">
+            </i>
+            <strong>
+             SOAR Connection
+            </strong>
+           </div>
+           <div>
+            <span class="badge bg-secondary" id="soarStatusBadge">
+             Unknown
+            </span>
+           </div>
+          </div>
+          <div class="card-body">
+           <div class="row g-3">
+            <div class="col-md-6">
+             <label class="form-label" for="soarUrl">
+              SOAR Platform API Endpoint
+             </label>
+             <input class="form-control" id="soarUrl" placeholder="https://soar.example.com/api" required="" type="url"/>
+             <div class="form-text">
+              Must be a valid URL.
+             </div>
+            </div>
+            <div class="col-md-6">
+             <label class="form-label" for="soarKey">
+              SOAR API Key
+             </label>
+             <div class="input-group">
+              <input class="form-control" id="soarKey" placeholder="••••••••" required="" type="password"/>
+              <button aria-label="Toggle key visibility" class="btn btn-light toggle-visibility-icon" data-target="soarKey" type="button">
+               <i class="fa-regular fa-eye">
+               </i>
+              </button>
+             </div>
+             <div class="form-text">
+              Key is masked; required.
+             </div>
+            </div>
+           </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+           <div class="small text-muted">
+            Last test:
+            <span id="soarLastTest">
+             Never
+            </span>
+           </div>
+           <div class="d-flex gap-2">
+            <button class="btn btn-warning text-dark" disabled="" id="btnTestSoar">
+             <i class="fa-solid fa-vial me-1">
+             </i>
+             Test Connection
+            </button>
+            <button class="btn btn-primary" disabled="" id="btnSaveSoar">
+             <i class="fa-solid fa-save me-1">
+             </i>
+             Save SOAR Settings
+            </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- System Management Panel -->
+     <section class="app-card mb-4" id="systemPanel">
+      <div class="card-header">
+       <div class="title d-flex align-items-center gap-2">
+        <i class="fa-solid fa-screwdriver-wrench text-primary">
+        </i>
+        <span class="widget-title">
+         System Management
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-light btn-sm" id="btnRefreshHealth">
+         <i class="fa-solid fa-arrows-rotate me-1">
+         </i>
+         Refresh Health
+        </button>
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="row g-3">
+        <!-- General Settings -->
+        <div class="col-12 col-lg-6">
+         <div class="card border rounded-2 h-100">
+          <div class="card-header">
+           <strong>
+            General Application Settings
+           </strong>
+          </div>
+          <div class="card-body">
+           <div class="mb-3">
+            <label class="form-label" for="logLevel">
+             Log Level
+            </label>
+            <select class="form-select" id="logLevel">
+             <option value="INFO">
+              INFO
+             </option>
+             <option value="DEBUG">
+              DEBUG
+             </option>
+             <option value="WARN">
+              WARN
+             </option>
+             <option value="ERROR">
+              ERROR
+             </option>
+            </select>
+            <div class="form-text">
+             Choose verbosity for troubleshooting.
+            </div>
+           </div>
+           <div class="mb-3">
+            <label class="form-label" for="retentionDays">
+             Audit Log Retention (days)
+            </label>
+            <input class="form-control" id="retentionDays" min="1" placeholder="30" step="1" type="number"/>
+            <div class="form-text">
+             Positive integer. Determines how long audit logs are stored.
+            </div>
+           </div>
+          </div>
+          <div class="card-footer d-flex justify-content-end">
+           <button class="btn btn-primary" disabled="" id="btnSaveSystem">
+            <i class="fa-solid fa-save me-1">
+            </i>
+            Save System Settings
+           </button>
+          </div>
+         </div>
+        </div>
+        <!-- NLP Model Status -->
+        <div class="col-12 col-lg-6">
+         <div class="card border rounded-2 h-100">
+          <div class="card-header d-flex align-items-center justify-content-between">
+           <strong>
+            NLP Model Status
+           </strong>
+           <span class="badge bg-secondary" id="modelStatusBadge">
+            Unknown
+           </span>
+          </div>
+          <div class="card-body">
+           <div class="row g-3 align-items-center">
+            <div class="col-sm-6">
+             <div class="d-flex flex-column">
+              <span class="text-muted small">
+               Model Version
+              </span>
+              <span class="fw-bold" id="modelVersion">
+               -
+              </span>
+             </div>
+            </div>
+            <div class="col-sm-6">
+             <div class="d-flex flex-column">
+              <span class="text-muted small">
+               Last Updated
+              </span>
+              <span class="fw-bold" id="modelUpdated">
+               -
+              </span>
+             </div>
+            </div>
+           </div>
+           <hr/>
+           <div>
+            <canvas aria-label="System health latency chart" height="120" id="healthChart">
+            </canvas>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Recent System Events Table -->
+     <section class="app-card" id="systemEvents">
+      <div class="card-header">
+       <div class="title d-flex align-items-center gap-2">
+        <i class="fa-solid fa-list-check text-primary">
+        </i>
+        <span class="widget-title">
+         Recent System Events
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <div class="input-group input-group-sm">
+         <span class="input-group-text">
+          <i class="fa-solid fa-magnifying-glass">
+          </i>
+         </span>
+         <input class="form-control" id="eventsFilter" placeholder="Filter by component or message" type="text"/>
+        </div>
+        <div class="dropdown">
+         <button aria-expanded="false" class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown" type="button">
+          Export
+         </button>
+         <ul class="dropdown-menu dropdown-menu-end">
+          <li>
+           <a class="dropdown-item" href="#" id="exportCsv">
+            CSV
+           </a>
+          </li>
+          <li>
+           <a class="dropdown-item" href="#" id="exportJson">
+            JSON
+           </a>
+          </li>
+         </ul>
+        </div>
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="table-responsive">
+        <table class="table table-hover align-middle" id="eventsTable">
+         <thead class="table-light">
+          <tr>
+           <th class="sortable" data-sort="time" scope="col">
+            Time
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="component" scope="col">
+            Component
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="level" scope="col">
+            Level
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-sort="message" scope="col">
+            Message
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable text-end" data-sort="latency" scope="col">
+            Latency (ms)
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th scope="col">
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody id="eventsBody">
+          <!-- Rows injected by JS -->
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <div class="card-footer d-flex align-items-center justify-content-between">
+       <div class="small text-muted" id="paginationInfo">
+        Showing 1–5 of 12
+       </div>
+       <div aria-label="Pagination" class="btn-group btn-group-sm" role="group">
+        <button class="btn btn-light" disabled="" id="prevPage">
+         <i class="fa-solid fa-chevron-left">
+         </i>
+        </button>
+        <button class="btn btn-light" id="nextPage">
+         <i class="fa-solid fa-chevron-right">
+         </i>
+        </button>
+       </div>
+      </div>
+     </section>
+    </div>
+   </main>
+  </div>
+  <!-- Footer (Common Component) -->
+  <footer class="border-top py-2 px-3 d-flex flex-wrap align-items-center justify-content-between bg-light">
+   <div class="d-flex align-items-center">
+    <span class="badge me-2" style="background-color:#2563EB;">
+     Admin
+    </span>
+    <small class="text-muted">
+     Manage integrations, health, and security.
+    </small>
+   </div>
+   <div class="small d-flex align-items-center gap-2">
+    <a class="me-2 text-decoration-none" href="#terms">
+     Terms
+    </a>
+    <a class="me-2 text-decoration-none" href="#privacy">
+     Privacy
+    </a>
+    <a class="btn btn-sm btn-outline-primary" href="./audit_log.html">
+     <i class="fas fa-file-circle-check me-1" style="color:#F59E0B;">
+     </i>
+     View Audit Log
+    </a>
+   </div>
+  </footer>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <!-- Bootstrap JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   // Helpers
+const isValidUrl = (value) => {
+    try {
+        new URL(value);
+        return true;
+    } catch {
+        return false;
+    }
+};
+
+const setBadge = (el, status) => {
+    const map = {
+        Online: 'bg-success',
+        Degraded: 'bg-warning text-dark',
+        Offline: 'bg-danger',
+        Unknown: 'bg-secondary'
+    };
+    el.className = 'badge ' + (map[status] || 'bg-secondary');
+    el.textContent = status;
+};
+
+// Form elements
+const splunkUrl = () => document.getElementById('splunkUrl');
+const splunkToken = () => document.getElementById('splunkToken');
+const elasticUrl = () => document.getElementById('elasticUrl');
+const elasticKey = () => document.getElementById('elasticKey');
+const soarUrl = () => document.getElementById('soarUrl');
+const soarKey = () => document.getElementById('soarKey');
+
+const btnTestSplunk = () => document.getElementById('btnTestSplunk');
+const btnSaveSIEM = () => document.getElementById('btnSaveSIEM');
+const btnTestElastic = () => document.getElementById('btnTestElastic');
+const btnSaveElastic = () => document.getElementById('btnSaveElastic');
+const btnTestSoar = () => document.getElementById('btnTestSoar');
+const btnSaveSoar = () => document.getElementById('btnSaveSoar');
+const btnSaveSystem = () => document.getElementById('btnSaveSystem');
+
+const feedbackArea = () => document.getElementById('feedbackArea');
+
+// Dirty state trackers
+let dirtySIEM = false;
+let dirtyElastic = false;
+let dirtySoar = false;
+let dirtySystem = false;
+
+function updateButtonStates() {
+    // Enable test buttons when URL and Token/Key have values and URL valid
+    btnTestSplunk().disabled = !(isValidUrl(splunkUrl().value) && splunkToken().value.trim().length > 0);
+    btnTestElastic().disabled = !(isValidUrl(elasticUrl().value) && elasticKey().value.trim().length > 0);
+    btnTestSoar().disabled = !(isValidUrl(soarUrl().value) && soarKey().value.trim().length > 0);
+
+    // Save buttons enable when dirty
+    btnSaveSIEM().disabled = !dirtySIEM;
+    btnSaveElastic().disabled = !dirtyElastic;
+    btnSaveSoar().disabled = !dirtySoar;
+    btnSaveSystem().disabled = !dirtySystem;
+
+    document.getElementById('btnSaveAll').disabled = !(dirtySIEM || dirtyElastic || dirtySoar || dirtySystem);
+    document.getElementById('btnSaveAllTop').disabled = document.getElementById('btnSaveAll').disabled;
+}
+
+function attachInputListeners() {
+    [splunkUrl(), splunkToken()].forEach(el => el.addEventListener('input', () => {
+        dirtySIEM = true;
+        updateButtonStates();
+    }));
+    [elasticUrl(), elasticKey()].forEach(el => el.addEventListener('input', () => {
+        dirtyElastic = true;
+        updateButtonStates();
+    }));
+    [soarUrl(), soarKey()].forEach(el => el.addEventListener('input', () => {
+        dirtySoar = true;
+        updateButtonStates();
+    }));
+    document.getElementById('logLevel').addEventListener('change', () => {
+        dirtySystem = true;
+        updateButtonStates();
+    });
+    document.getElementById('retentionDays').addEventListener('input', () => {
+        dirtySystem = true;
+        updateButtonStates();
+    });
+
+    // toggle password visibility
+    document.querySelectorAll('.toggle-visibility-icon').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (!input) return;
+            input.type = input.type === 'password' ? 'text' : 'password';
+            btn.querySelector('i').classList.toggle('fa-eye');
+            btn.querySelector('i').classList.toggle('fa-eye-slash');
+        });
+    });
+}
+
+// Simulated backend calls
+function simulateNetwork(actionLabel) {
+    return new Promise((resolve, reject) => {
+        const delay = Math.random() * 800 + 400;
+        setTimeout(() => {
+            // 80% success probability
+            Math.random() < 0.8 ? resolve({
+                ok: true
+            }) : reject(new Error(actionLabel + ' failed'));
+        }, delay);
+    });
+}
+
+function handleTest(button, badgeEl, lastTestEl, name) {
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Testing';
+    simulateNetwork('Test ' + name)
+        .then(() => {
+            setBadge(badgeEl, 'Online');
+            lastTestEl.textContent = new Date().toLocaleString();
+            Swal.fire({
+                icon: 'success',
+                title: name + ' Connected',
+                text: 'Connection test succeeded.'
+            });
+        })
+        .catch((err) => {
+            setBadge(badgeEl, 'Offline');
+            lastTestEl.textContent = new Date().toLocaleString();
+            Swal.fire({
+                icon: 'error',
+                title: name + ' Connection Failed',
+                text: err.message
+            });
+        })
+        .finally(() => {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        });
+}
+
+function handleSave(button, sectionName, onSaved) {
+    const originalText = button.innerHTML;
+    button.disabled = true;
+    button.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Saving';
+    simulateNetwork('Save ' + sectionName)
+        .then(() => {
+            onSaved && onSaved();
+            Swal.fire({
+                icon: 'success',
+                title: sectionName + ' Saved',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        })
+        .catch((err) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Save Failed',
+                text: err.message
+            });
+        })
+        .finally(() => {
+            button.innerHTML = originalText;
+            updateButtonStates();
+        });
+}
+
+// Health chart
+let healthChart;
+
+function renderHealthChart() {
+    const ctx = document.getElementById('healthChart');
+    const labels = Array.from({
+        length: 12
+    }).map((_, i) => `${i+1}m`);
+    const data = labels.map(() => Math.floor(100 + Math.random() * 120));
+    if (healthChart) healthChart.destroy();
+    healthChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: 'NLP Inference Latency',
+                data,
+                borderColor: 'rgba(37,99,235,1)',
+                backgroundColor: 'rgba(37,99,235,0.1)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'ms'
+                    },
+                    grid: {
+                        color: 'rgba(0,0,0,.05)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+// Events table with sorting, filtering, pagination
+const eventsData = [{
+    time: '2025-08-30 09:15:24',
+    component: 'SIEM: Splunk',
+    level: 'INFO',
+    message: 'Connection test succeeded',
+    latency: 212
+}, {
+    time: '2025-08-30 09:10:13',
+    component: 'SOAR',
+    level: 'WARN',
+    message: 'Response latency high',
+    latency: 487
+}, {
+    time: '2025-08-30 08:59:01',
+    component: 'NLP Model',
+    level: 'INFO',
+    message: 'Model loaded: v1.8.2',
+    latency: 156
+}, {
+    time: '2025-08-30 08:42:44',
+    component: 'Elasticsearch',
+    level: 'ERROR',
+    message: 'Authentication failed',
+    latency: 0
+}, {
+    time: '2025-08-30 08:40:12',
+    component: 'Audit',
+    level: 'INFO',
+    message: 'Retention policy applied (30d)',
+    latency: 12
+}, {
+    time: '2025-08-30 08:38:57',
+    component: 'System',
+    level: 'DEBUG',
+    message: 'Background job cycle completed',
+    latency: 96
+}, {
+    time: '2025-08-30 08:35:11',
+    component: 'SIEM: Elastic',
+    level: 'INFO',
+    message: 'API key verified',
+    latency: 144
+}, {
+    time: '2025-08-30 08:30:05',
+    component: 'SOAR',
+    level: 'INFO',
+    message: 'Playbook sync complete',
+    latency: 198
+}, {
+    time: '2025-08-30 08:28:49',
+    component: 'System',
+    level: 'WARN',
+    message: 'CPU usage high',
+    latency: 0
+}, {
+    time: '2025-08-30 08:20:33',
+    component: 'NLP Model',
+    level: 'INFO',
+    message: 'Health OK',
+    latency: 138
+}, {
+    time: '2025-08-30 08:12:07',
+    component: 'Elasticsearch',
+    level: 'INFO',
+    message: 'Cluster green',
+    latency: 175
+}, {
+    time: '2025-08-30 08:05:59',
+    component: 'SIEM: Splunk',
+    level: 'INFO',
+    message: 'Ingest connected',
+    latency: 205
+}];
+let currentPage = 1;
+const pageSize = 5;
+let currentSort = {
+    key: 'time',
+    dir: 'desc'
+};
+let filterText = '';
+
+function compare(a, b, key, dir) {
+    const va = a[key];
+    const vb = b[key];
+    if (key === 'time') { // compare dates
+        const da = new Date(va);
+        const db = new Date(vb);
+        return dir === 'asc' ? da - db : db - da;
+    }
+    if (typeof va === 'number' && typeof vb === 'number') return dir === 'asc' ? va - vb : vb - va;
+    return dir === 'asc' ? String(va).localeCompare(String(vb)) : String(vb).localeCompare(String(va));
+}
+
+function renderTable() {
+    const body = document.getElementById('eventsBody');
+    body.innerHTML = '';
+    let filtered = eventsData.filter(e => (e.component + ' ' + e.message).toLowerCase().includes(filterText.toLowerCase()));
+    filtered.sort((a, b) => compare(a, b, currentSort.key, currentSort.dir));
+    const total = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(total / pageSize));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const start = (currentPage - 1) * pageSize;
+    const end = start + pageSize;
+    const pageItems = filtered.slice(start, end);
+    pageItems.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><code>${row.time}</code></td>
+          <td>${row.component}</td>
+          <td>
+            <span class="badge ${row.level==='ERROR'?'bg-danger':row.level==='WARN'?'bg-warning text-dark':row.level==='DEBUG'?'bg-secondary':'bg-success'}">${row.level}</span>
+          </td>
+          <td>${row.message}</td>
+          <td class="text-end">${row.latency.toLocaleString()}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-light" title="View"><i class="fa-regular fa-eye"></i></button>
+              <button class="btn btn-light" title="Re-run"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+          </td>`;
+        body.appendChild(tr);
+    });
+    document.getElementById('paginationInfo').textContent = `Showing ${total===0?0:start+1}–${Math.min(end,total)} of ${total}`;
+    document.getElementById('prevPage').disabled = currentPage <= 1;
+    document.getElementById('nextPage').disabled = currentPage >= totalPages;
+}
+
+function attachTableHandlers() {
+    document.querySelectorAll('#eventsTable thead th.sortable').forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+            const key = th.getAttribute('data-sort');
+            if (currentSort.key === key) currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+            else {
+                currentSort.key = key;
+                currentSort.dir = 'asc';
+            }
+            renderTable();
+        });
+    });
+    document.getElementById('prevPage').addEventListener('click', () => {
+        currentPage = Math.max(1, currentPage - 1);
+        renderTable();
+    });
+    document.getElementById('nextPage').addEventListener('click', () => {
+        currentPage = currentPage + 1;
+        renderTable();
+    });
+    document.getElementById('eventsFilter').addEventListener('input', (e) => {
+        filterText = e.target.value;
+        currentPage = 1;
+        renderTable();
+    });
+    document.getElementById('exportCsv').addEventListener('click', (e) => {
+        e.preventDefault();
+        exportCSV();
+    });
+    document.getElementById('exportJson').addEventListener('click', (e) => {
+        e.preventDefault();
+        exportJSON();
+    });
+}
+
+function exportCSV() {
+    const headers = ['Time', 'Component', 'Level', 'Message', 'Latency(ms)'];
+    const rows = eventsData.map(e => [e.time, e.component, e.level, e.message.replaceAll(',', ';'), e.latency]);
+    const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8;'
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'system_events.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+function exportJSON() {
+    const blob = new Blob([JSON.stringify(eventsData, null, 2)], {
+        type: 'application/json'
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'system_events.json';
+    link.click();
+    URL.revokeObjectURL(url);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Show loading state
+    feedbackArea().classList.remove('d-none');
+
+    // Simulate fetching current configs
+    setTimeout(() => {
+        // Pre-fill with sample values
+        splunkUrl().value = 'https://splunk.example.com:8089';
+        elasticUrl().value = 'https://elastic.example.com:9200';
+        soarUrl().value = 'https://soar.example.com/api';
+        document.getElementById('logLevel').value = 'INFO';
+        document.getElementById('retentionDays').value = '30';
+
+        setBadge(document.getElementById('splunkStatusBadge'), 'Unknown');
+        setBadge(document.getElementById('elasticStatusBadge'), 'Unknown');
+        setBadge(document.getElementById('soarStatusBadge'), 'Unknown');
+        setBadge(document.getElementById('modelStatusBadge'), 'Online');
+        document.getElementById('modelVersion').textContent = 'v1.8.2';
+        document.getElementById('modelUpdated').textContent = new Date().toLocaleString();
+
+        renderHealthChart();
+        feedbackArea().classList.add('d-none');
+        updateButtonStates();
+    }, 800);
+
+    attachInputListeners();
+
+    // Button bindings
+    document.getElementById('btnTestAll').addEventListener('click', () => {
+        document.getElementById('btnTestAllTop').click();
+    });
+    document.getElementById('btnTestAllTop').addEventListener('click', () => {
+        if (!btnTestSplunk().disabled) btnTestSplunk().click();
+        if (!btnTestElastic().disabled) btnTestElastic().click();
+        if (!btnTestSoar().disabled) btnTestSoar().click();
+    });
+
+    document.getElementById('btnSaveAll').addEventListener('click', () => {
+        document.getElementById('btnSaveAllTop').click();
+    });
+    document.getElementById('btnSaveAllTop').addEventListener('click', () => {
+        const actions = [];
+        if (dirtySIEM) actions.push(() => btnSaveSIEM().click());
+        if (dirtyElastic) actions.push(() => btnSaveElastic().click());
+        if (dirtySoar) actions.push(() => btnSaveSoar().click());
+        if (dirtySystem) actions.push(() => btnSaveSystem().click());
+        if (actions.length === 0) return Swal.fire({
+            icon: 'info',
+            title: 'Nothing to save',
+            timer: 1200,
+            showConfirmButton: false
+        });
+        actions.forEach(fn => fn());
+    });
+
+    // Individual tests
+    btnTestSplunk().addEventListener('click', () => handleTest(btnTestSplunk(), document.getElementById('splunkStatusBadge'), document.getElementById('splunkLastTest'), 'Splunk'));
+    btnTestElastic().addEventListener('click', () => handleTest(btnTestElastic(), document.getElementById('elasticStatusBadge'), document.getElementById('elasticLastTest'), 'Elasticsearch'));
+    btnTestSoar().addEventListener('click', () => handleTest(btnTestSoar(), document.getElementById('soarStatusBadge'), document.getElementById('soarLastTest'), 'SOAR'));
+
+    // Save buttons
+    btnSaveSIEM().addEventListener('click', () => handleSave(btnSaveSIEM(), 'SIEM Settings', () => {
+        dirtySIEM = false;
+    }));
+    btnSaveElastic().addEventListener('click', () => handleSave(btnSaveElastic(), 'SIEM Settings', () => {
+        dirtyElastic = false;
+    }));
+    btnSaveSoar().addEventListener('click', () => handleSave(btnSaveSoar(), 'SOAR Settings', () => {
+        dirtySoar = false;
+    }));
+    btnSaveSystem().addEventListener('click', () => {
+        // Validate retentionDays
+        const days = parseInt(document.getElementById('retentionDays').value, 10);
+        if (isNaN(days) || days < 1) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Invalid Retention',
+                text: 'Please enter a positive integer for retention days.'
+            });
+            return;
+        }
+        handleSave(btnSaveSystem(), 'System Settings', () => {
+            dirtySystem = false;
+        });
+    });
+
+    document.getElementById('btnRefreshHealth').addEventListener('click', () => {
+        renderHealthChart();
+        Swal.fire({
+            icon: 'info',
+            title: 'Health Refreshed',
+            timer: 1000,
+            showConfirmButton: false
+        });
+    });
+
+    // Table setup
+    attachTableHandlers();
+    renderTable();
+});
+  </script>
+ </body>
+</html>

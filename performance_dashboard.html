@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Performance Dashboard | Management &amp; Governance
+  </title>
+  <!-- Brand Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet"/>
+  <!-- DataTables (Bootstrap 5) CSS -->
+  <link href="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2Pkf6BmlP1x90+H0Nwp0n2RjXK5jZ6K0BJt7C6xEyh4G6dkNf9+X7CIywg==" referrerpolicy="no-referrer" rel="stylesheet">
+    <!-- Global Theme CSS -->
+    <link href="style.css" rel="stylesheet"/>
+    <!-- Page-specific CSS link (as requested) -->
+    <style href="performance_dashboard.css" rel="stylesheet">
+    </style>
+   </link>
+  </link>
+ </head>
+ <body>
+  <!-- Header (top) -->
+  <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#2563EB;">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMain" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#sidebarMain" data-bs-toggle="offcanvas" id="mobileSidebarToggle" type="button">
+     <i class="fas fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./performance_dashboard.html">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/56/28';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:28px;"/>
+     <span>
+      Management &amp; Governance
+     </span>
+    </a>
+    <form class="d-none d-md-flex mx-auto" role="search" style="max-width: 480px;">
+     <input aria-label="Search" class="form-control form-control-sm" placeholder="Search users, actions, reports" type="search"/>
+    </form>
+    <ul class="navbar-nav ms-auto align-items-center">
+     <li class="nav-item me-2 d-none d-md-block">
+      <button class="btn btn-sm btn-warning text-dark" id="headerExportBtn">
+       <i class="fas fa-file-export me-1">
+       </i>
+       Export
+      </button>
+     </li>
+     <li class="nav-item me-2 d-none d-md-block">
+      <button class="btn btn-sm btn-outline-light" id="btnRefresh">
+       <i class="fas fa-sync me-1">
+       </i>
+       Refresh
+      </button>
+     </li>
+     <li class="nav-item dropdown me-2">
+      <a aria-expanded="false" class="nav-link" data-bs-toggle="dropdown" href="#" id="notifDropdown" role="button">
+       <i class="fas fa-bell">
+       </i>
+      </a>
+      <ul aria-labelledby="notifDropdown" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        Notifications
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         Weekly KPI report is ready
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         New audit anomalies detected
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="nav-item dropdown">
+      <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" id="userMenuMgmt" role="button">
+       <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/user/24/24';" src="https://www.gravatar.com/avatar?d=mp" style="width:24px;height:24px;"/>
+       <span>
+        {{UserName}}
+       </span>
+      </a>
+      <ul aria-labelledby="userMenuMgmt" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        {{UserRole}}
+       </li>
+       <li>
+        <a class="dropdown-item" href="./admin_settings.html">
+         <i class="fas fa-cog me-2">
+         </i>
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./audit_log.html">
+         <i class="fas fa-folder-open me-2">
+         </i>
+         Reports Center
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         <i class="fas fa-sign-out-alt me-2">
+         </i>
+         Logout
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <!-- Layout: Sidebar (left) + Main content -->
+  <div class="d-flex">
+   <!-- Sidebar (as provided, left) -->
+   <aside class="d-flex flex-column flex-shrink-0 bg-light border-end" id="sidebarMain" style="width: 280px; min-height: 100vh;">
+    <div class="p-3 border-bottom d-flex align-items-center">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sidebarlogo/64/32';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:32px;"/>
+     <div>
+      <div class="fw-semibold" style="color:#2563EB;">
+       Management
+      </div>
+      <small class="text-muted">
+       Manager / Leadership
+      </small>
+     </div>
+    </div>
+    <div class="px-3 py-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/sidebaruser/36/36';" src="https://www.gravatar.com/avatar?d=mp" style="width:36px;height:36px;"/>
+      <div>
+       <div class="fw-semibold">
+        {{UserName}}
+       </div>
+       <small class="text-muted">
+        {{UserRole}}
+       </small>
+      </div>
+     </div>
+    </div>
+    <nav class="flex-grow-1 overflow-auto pt-2">
+     <ul class="nav nav-pills flex-column mb-auto" id="mgmtNav">
+      <li class="nav-item">
+       <a class="nav-link d-flex align-items-center active" href="/performance">
+        <i class="fas fa-tachometer-alt me-2">
+        </i>
+        Performance Dashboard
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link d-flex align-items-center" href="/audit">
+        <i class="fas fa-clipboard-check me-2">
+        </i>
+        Audit Log
+       </a>
+      </li>
+      <li>
+       <a aria-controls="analyticsMenu" aria-expanded="true" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#analyticsMenu" role="button">
+        <i class="fas fa-chart-area me-2">
+        </i>
+        Analytics
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse show ps-4" id="analyticsMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#mttr">
+           <i class="fas fa-stopwatch me-2">
+           </i>
+           MTTR Trends
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#adoption">
+           <i class="fas fa-users me-2">
+           </i>
+           User Adoption
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#activity">
+           <i class="fas fa-user-clock me-2">
+           </i>
+           User Activity
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+      <li>
+       <a aria-controls="governanceMenu" aria-expanded="false" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#governanceMenu" role="button">
+        <i class="fas fa-shield-alt me-2">
+        </i>
+        Governance
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse ps-4" id="governanceMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#reports">
+           <i class="fas fa-file-export me-2">
+           </i>
+           Reports
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#compliance">
+           <i class="fas fa-balance-scale me-2">
+           </i>
+           Compliance
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+     </ul>
+    </nav>
+    <div class="mt-auto p-3 border-top small d-flex justify-content-between">
+     <a class="text-decoration-none" href="#export">
+      <i class="fas fa-file-export me-1" style="color:#F59E0B;">
+      </i>
+      Export
+     </a>
+     <a class="text-decoration-none" href="#help">
+      <i class="fas fa-question-circle me-1" style="color:#F59E0B;">
+      </i>
+      Help
+     </a>
+    </div>
+    <style>
+     #sidebarMain .nav-link { color:#374151; border-radius:.375rem; }
+        #sidebarMain .nav-link:hover { background-color: rgba(37,99,235,.08); color:#111827; }
+        #sidebarMain .nav-link.active, #sidebarMain a[href='/performance'].active, #sidebarMain a[href='/audit'].active { background-color: rgba(37,99,235,.12); color:#2563EB; font-weight:600; }
+    </style>
+   </aside>
+   <!-- Main content -->
+   <main class="flex-grow-1 d-flex flex-column min-vh-100 bg-transparent">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Dashboard Header -->
+     <div class="page-header align-items-center mb-3">
+      <div>
+       <h1 class="page-title mb-1">
+        Performance Dashboard
+       </h1>
+       <small class="text-muted">
+        Visual overview of SOC operational efficiency, AI assistant impact, and progress against objectives.
+       </small>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+       <div class="input-group input-group-sm" style="width: 240px;">
+        <span class="input-group-text bg-light">
+         <i class="fas fa-calendar-alt">
+         </i>
+        </span>
+        <select class="form-select" id="dateRangeSelect">
+         <option value="7">
+          Last 7 Days
+         </option>
+         <option selected="" value="30">
+          Last 30 Days
+         </option>
+         <option value="90">
+          Last Quarter (90 Days)
+         </option>
+        </select>
+       </div>
+       <button class="btn btn-sm btn-warning text-dark" id="btnExport">
+        <i class="fas fa-file-export me-1">
+        </i>
+        Export
+       </button>
+      </div>
+     </div>
+     <!-- KPI Summary Cards -->
+     <div class="row g-3 g-lg-4" id="kpiRow">
+      <div class="col-12 col-sm-6 col-lg-3">
+       <div class="metric-card h-100 position-relative">
+        <div class="d-flex align-items-center justify-content-between">
+         <div class="metric-title">
+          Mean Time to Respond (MTTR)
+         </div>
+         <i class="fa-solid fa-stopwatch text-primary">
+         </i>
+        </div>
+        <div class="metric-value" id="kpiMttrValue">
+         --
+        </div>
+        <div class="d-flex align-items-center small" id="kpiMttrTrend">
+         <span class="me-2 badge-soft success">
+          <i class="fa-solid fa-arrow-down">
+          </i>
+          <span class="trend">
+           --
+          </span>
+         </span>
+         <span class="text-muted">
+          vs. previous period
+         </span>
+        </div>
+        <div class="position-absolute top-0 end-0 p-2 reveal-target">
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+       <div class="metric-card h-100">
+        <div class="d-flex align-items-center justify-content-between">
+         <div class="metric-title">
+          User Adoption Rate
+         </div>
+         <i class="fa-solid fa-users text-success">
+         </i>
+        </div>
+        <div class="metric-value" id="kpiAdoptionValue">
+         --
+        </div>
+        <div class="d-flex align-items-center small" id="kpiAdoptionTrend">
+         <span class="me-2 badge-soft success">
+          <i class="fa-solid fa-arrow-up">
+          </i>
+          <span class="trend">
+           --
+          </span>
+         </span>
+         <span class="text-muted">
+          vs. previous period
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+       <div class="metric-card h-100">
+        <div class="d-flex align-items-center justify-content-between">
+         <div class="metric-title">
+          Junior Analyst Task Time Reduction
+         </div>
+         <i class="fa-solid fa-gauge text-info">
+         </i>
+        </div>
+        <div class="metric-value" id="kpiReductionValue">
+         --
+        </div>
+        <div class="d-flex align-items-center small" id="kpiReductionTrend">
+         <span class="me-2 badge-soft success">
+          <i class="fa-solid fa-arrow-up">
+          </i>
+          <span class="trend">
+           --
+          </span>
+         </span>
+         <span class="text-muted">
+          vs. previous period
+         </span>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-sm-6 col-lg-3">
+       <div class="metric-card h-100">
+        <div class="d-flex align-items-center justify-content-between">
+         <div class="metric-title">
+          Total Queries Processed
+         </div>
+         <i class="fa-solid fa-database text-secondary">
+         </i>
+        </div>
+        <div class="metric-value" id="kpiQueriesValue">
+         --
+        </div>
+        <div class="d-flex align-items-center small" id="kpiQueriesTrend">
+         <span class="me-2 badge-soft success">
+          <i class="fa-solid fa-arrow-up">
+          </i>
+          <span class="trend">
+           --
+          </span>
+         </span>
+         <span class="text-muted">
+          vs. previous period
+         </span>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- Charts 2x2 Grid -->
+     <div class="row g-3 g-lg-4 mt-2" id="chartsGrid">
+      <div class="col-12 col-lg-6" id="mttr">
+       <div class="card h-100">
+        <div class="card-header">
+         <span class="widget-title">
+          MTTR Trend
+         </span>
+         <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-light" data-action="reset-zoom" data-chart="mttr">
+           <i class="fa-solid fa-magnifying-glass-minus">
+           </i>
+           Reset Zoom
+          </button>
+         </div>
+        </div>
+        <div class="card-body chart-card-body">
+         <canvas height="140" id="mttrChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-lg-6" id="adoption">
+       <div class="card h-100">
+        <div class="card-header">
+         <span class="widget-title">
+          User Adoption Over Time
+         </span>
+         <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-light" data-action="reset-zoom" data-chart="adoption">
+           <i class="fa-solid fa-magnifying-glass-minus">
+           </i>
+           Reset Zoom
+          </button>
+         </div>
+        </div>
+        <div class="card-body chart-card-body">
+         <canvas height="140" id="adoptionChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-lg-6">
+       <div class="card h-100">
+        <div class="card-header">
+         <span class="widget-title">
+          Queries Processed
+         </span>
+         <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-light" data-action="reset-zoom" data-chart="queries">
+           <i class="fa-solid fa-magnifying-glass-minus">
+           </i>
+           Reset Zoom
+          </button>
+         </div>
+        </div>
+        <div class="card-body chart-card-body">
+         <canvas height="140" id="queriesChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+      <div class="col-12 col-lg-6">
+       <div class="card h-100">
+        <div class="card-header">
+         <span class="widget-title">
+          Task Time Reduction
+         </span>
+         <div class="d-flex align-items-center gap-2">
+          <button class="btn btn-sm btn-light" data-action="reset-zoom" data-chart="reduction">
+           <i class="fa-solid fa-magnifying-glass-minus">
+           </i>
+           Reset Zoom
+          </button>
+         </div>
+        </div>
+        <div class="card-body chart-card-body">
+         <canvas height="140" id="reductionChart">
+         </canvas>
+        </div>
+       </div>
+      </div>
+     </div>
+     <!-- User Activity Table -->
+     <div class="card mt-3" id="activity">
+      <div class="card-header">
+       <div class="d-flex align-items-center justify-content-between w-100">
+        <span class="widget-title">
+         User Activity
+        </span>
+        <div class="d-flex align-items-center gap-2">
+         <div class="input-group input-group-sm" style="width:260px;">
+          <span class="input-group-text bg-light">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+          </span>
+          <input class="form-control" id="activitySearch" placeholder="Filter users, roles, activity" type="text"/>
+         </div>
+         <button class="btn btn-sm btn-outline-primary" id="btnExportTable">
+          <i class="fa-solid fa-table me-1">
+          </i>
+          Export Table
+         </button>
+        </div>
+       </div>
+      </div>
+      <div class="card-body">
+       <div class="table-responsive">
+        <table class="table table-theme table-striped align-middle" id="activityTable" style="width:100%">
+         <thead>
+          <tr>
+           <th>
+            User
+           </th>
+           <th>
+            Role
+           </th>
+           <th class="text-end">
+            Total Queries
+           </th>
+           <th>
+            Most Common Query Type
+           </th>
+           <th>
+            Last Active
+           </th>
+           <th class="text-center">
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody>
+          <tr>
+           <td>
+            Alex Chen
+           </td>
+           <td>
+            Senior Analyst
+           </td>
+           <td class="text-end">
+            1,284
+           </td>
+           <td>
+            Threat Intel Lookup
+           </td>
+           <td>
+            2025-08-28 14:22
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Sara Patel
+           </td>
+           <td>
+            Junior Analyst
+           </td>
+           <td class="text-end">
+            842
+           </td>
+           <td>
+            IOC Enrichment
+           </td>
+           <td>
+            2025-08-28 13:47
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Michael O'Neill
+           </td>
+           <td>
+            Incident Responder
+           </td>
+           <td class="text-end">
+            1,056
+           </td>
+           <td>
+            Case Summary
+           </td>
+           <td>
+            2025-08-28 12:05
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Priya Singh
+           </td>
+           <td>
+            Threat Hunter
+           </td>
+           <td class="text-end">
+            1,612
+           </td>
+           <td>
+            Hunt Query Assist
+           </td>
+           <td>
+            2025-08-28 11:52
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Diego Martinez
+           </td>
+           <td>
+            Junior Analyst
+           </td>
+           <td class="text-end">
+            694
+           </td>
+           <td>
+            IOC Enrichment
+           </td>
+           <td>
+            2025-08-28 10:34
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Emma Johnson
+           </td>
+           <td>
+            Senior Analyst
+           </td>
+           <td class="text-end">
+            1,438
+           </td>
+           <td>
+            Threat Intel Lookup
+           </td>
+           <td>
+            2025-08-28 09:59
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Jamal Brown
+           </td>
+           <td>
+            Incident Responder
+           </td>
+           <td class="text-end">
+            1,031
+           </td>
+           <td>
+            Case Summary
+           </td>
+           <td>
+            2025-08-28 09:21
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+          <tr>
+           <td>
+            Laura Rossi
+           </td>
+           <td>
+            Threat Hunter
+           </td>
+           <td class="text-end">
+            1,205
+           </td>
+           <td>
+            Hunt Query Assist
+           </td>
+           <td>
+            2025-08-28 08:41
+           </td>
+           <td class="text-center">
+            <a class="btn btn-sm btn-light" href="./investigation_console.html">
+             <i class="fa-solid fa-eye">
+             </i>
+            </a>
+           </td>
+          </tr>
+         </tbody>
+        </table>
+       </div>
+       <div class="small text-muted mt-2">
+        Showing activity for selected range. Use the search box to filter. Pagination is at the bottom of the table.
+       </div>
+      </div>
+     </div>
+    </div>
+    <!-- Footer (bottom) -->
+    <footer class="border-top py-2 px-3 d-flex flex-wrap align-items-center justify-content-between bg-light mt-auto">
+     <div class="d-flex align-items-center">
+      <span class="badge me-2" style="background-color:#2563EB;">
+       Manager
+      </span>
+      <small class="text-muted">
+       Track MTTR, adoption, and audit compliance.
+      </small>
+     </div>
+     <div class="small">
+      <a class="me-3 text-decoration-none" href="#terms">
+       Terms
+      </a>
+      <a class="me-3 text-decoration-none" href="#privacy">
+       Privacy
+      </a>
+      <a class="me-3 text-decoration-none" href="./performance_dashboard.html">
+       Dashboard
+      </a>
+      <a class="me-3 text-decoration-none" href="./audit_log.html">
+       Audit Log
+      </a>
+      <button class="btn btn-sm btn-outline-primary" id="footerExport">
+       <i class="fas fa-download me-1" style="color:#F59E0B;">
+       </i>
+       Export View
+      </button>
+     </div>
+    </footer>
+   </main>
+  </div>
+  <!-- Toasts / Notifications -->
+  <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1060;">
+   <div aria-atomic="true" aria-live="assertive" class="toast align-items-center text-bg-primary border-0" id="updateToast" role="alert">
+    <div class="d-flex">
+     <div class="toast-body">
+      Dashboard updated for the selected date range.
+     </div>
+     <button aria-label="Close" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+   </div>
+  </div>
+  <!-- Loading overlay -->
+  <div class="loading-overlay d-none" id="loadingOverlay">
+   <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">
+     Loading...
+    </span>
+   </div>
+  </div>
+  <!-- Dependencies: Bootstrap Bundle JS -->
+  <script crossorigin="anonymous" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <!-- SweetAlert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <!-- Chart.js + Zoom plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.umd.min.js">
+  </script>
+  <!-- DataTables (Bootstrap 5) JS -->
+  <script src="https://cdn.datatables.net/v/bs5/dt-2.0.8/datatables.min.js">
+  </script>
+  <script>
+   // Mobile sidebar toggle behavior (simulate offcanvas)
+(function() {
+    const sidebar = document.getElementById('sidebarMain');
+    const toggleBtn = document.getElementById('mobileSidebarToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            sidebar.classList.toggle('open');
+        });
+    }
+    // close sidebar when clicking outside on small screens
+    document.addEventListener('click', (evt) => {
+        if (window.innerWidth < 992 && sidebar.classList.contains('open')) {
+            const isClickInside = sidebar.contains(evt.target) || (toggleBtn && toggleBtn.contains(evt.target));
+            if (!isClickInside) sidebar.classList.remove('open');
+        }
+    });
+})();
+
+// Charts setup
+Chart.register(window['chartjs-plugin-zoom']);
+
+const state = {
+    rangeDays: 30,
+    charts: {},
+    isExporting: false
+};
+
+function formatNumber(n) {
+    return n.toLocaleString(undefined);
+}
+
+function formatPct(n) {
+    return (n).toFixed(1) + '%';
+}
+
+function formatMinutes(n) {
+    return n.toFixed(1) + ' min';
+}
+
+// Generate time series data for a given number of days
+function generateTimeSeries(days) {
+    const labels = [];
+    const now = new Date();
+    for (let i = days - 1; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        labels.push(d.toISOString().slice(0, 10));
+    }
+    // MTTR: trending slightly downward
+    let mttr = [];
+    let base = 28; // minutes
+    for (let i = 0; i < days; i++) {
+        const drift = Math.sin(i / 7) * 1.2 - i * (0.05 / days) * days; // slight downtrend
+        mttr.push(Math.max(10, base + drift + (Math.random() * 2 - 1)));
+    }
+    // Adoption: trending upward to ~90%+
+    let adoption = [];
+    let a = 70;
+    for (let i = 0; i < days; i++) {
+        a = Math.min(96, a + 0.3 + (Math.random() * 1.2 - 0.3));
+        adoption.push(Math.max(50, a));
+    }
+    // Queries processed: trending upward
+    let queries = [];
+    let q = 800;
+    for (let i = 0; i < days; i++) {
+        q = Math.max(400, q + (Math.random() * 80 - 10));
+        queries.push(Math.round(q));
+    }
+    // Task time reduction: trending upward
+    let reduction = [];
+    let r = 10;
+    for (let i = 0; i < days; i++) {
+        r = Math.min(65, r + 0.35 + (Math.random() * 0.8 - 0.2));
+        reduction.push(Math.max(5, r));
+    }
+
+    return {
+        labels,
+        mttr,
+        adoption,
+        queries,
+        reduction
+    };
+}
+
+function computeChange(latestArray) {
+    if (latestArray.length < 2) return 0;
+    const half = Math.floor(latestArray.length / 2);
+    const prevAvg = latestArray.slice(0, half).reduce((a, b) => a + b, 0) / half;
+    const currAvg = latestArray.slice(half).reduce((a, b) => a + b, 0) / (latestArray.length - half);
+    const change = ((currAvg - prevAvg) / (prevAvg || 1)) * 100;
+    return change;
+}
+
+function updateKPIs(series) {
+    // MTTR: lower is better
+    const mttrChange = computeChange(series.mttr);
+    const mttrLatest = series.mttr[series.mttr.length - 1];
+    const mttrDir = mttrChange <= 0 ? 'down' : 'up';
+    document.getElementById('kpiMttrValue').textContent = formatMinutes(mttrLatest);
+    const mttrTrend = document.querySelector('#kpiMttrTrend .trend');
+    mttrTrend.textContent = formatPct(Math.abs(mttrChange));
+    const mttrBadge = document.querySelector('#kpiMttrTrend .badge-soft');
+    mttrBadge.className = 'me-2 badge-soft ' + (mttrDir === 'down' ? 'success' : 'error');
+    mttrBadge.innerHTML = `<i class="fa-solid fa-arrow-${mttrDir}"></i> <span class="trend">${mttrTrend.textContent}</span>`;
+
+    // Adoption: higher is better
+    const adChange = computeChange(series.adoption);
+    const adLatest = series.adoption[series.adoption.length - 1];
+    const adDir = adChange >= 0 ? 'up' : 'down';
+    document.getElementById('kpiAdoptionValue').textContent = formatPct(adLatest);
+    const adBadge = document.querySelector('#kpiAdoptionTrend .badge-soft');
+    adBadge.className = 'me-2 badge-soft ' + (adDir === 'up' ? 'success' : 'error');
+    adBadge.innerHTML = `<i class="fa-solid fa-arrow-${adDir}"></i> <span class="trend">${formatPct(Math.abs(adChange))}</span>`;
+
+    // Reduction: higher is better
+    const redChange = computeChange(series.reduction);
+    const redLatest = series.reduction[series.reduction.length - 1];
+    const redDir = redChange >= 0 ? 'up' : 'down';
+    document.getElementById('kpiReductionValue').textContent = formatPct(redLatest);
+    const redBadge = document.querySelector('#kpiReductionTrend .badge-soft');
+    redBadge.className = 'me-2 badge-soft ' + (redDir === 'up' ? 'success' : 'error');
+    redBadge.innerHTML = `<i class="fa-solid fa-arrow-${redDir}"></i> <span class="trend">${formatPct(Math.abs(redChange))}</span>`;
+
+    // Queries: higher is better
+    const qChange = computeChange(series.queries);
+    const qSum = series.queries.reduce((a, b) => a + b, 0);
+    const qDir = qChange >= 0 ? 'up' : 'down';
+    document.getElementById('kpiQueriesValue').textContent = formatNumber(qSum);
+    const qBadge = document.querySelector('#kpiQueriesTrend .badge-soft');
+    qBadge.className = 'me-2 badge-soft ' + (qDir === 'up' ? 'success' : 'error');
+    qBadge.innerHTML = `<i class="fa-solid fa-arrow-${qDir}"></i> <span class="trend">${formatPct(Math.abs(qChange))}</span>`;
+}
+
+function makeLineChart(ctx, labels, data, label, color, yTitle, isArea = false, goal = null) {
+    const cfg = {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label,
+                data,
+                borderColor: color,
+                backgroundColor: isArea ? Chart.helpers.color(color).alpha(0.15) : color,
+                fill: isArea,
+                tension: 0.3,
+                pointRadius: 0,
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    enabled: true
+                },
+                zoom: {
+                    limits: {
+                        x: {
+                            minRange: 3
+                        }
+                    },
+                    pan: {
+                        enabled: true,
+                        mode: 'x'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: false
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: yTitle
+                    }
+                }
+            }
+        }
+    };
+    if (goal !== null) {
+        cfg.data.datasets.push({
+            label: 'Goal',
+            data: new Array(labels.length).fill(goal),
+            borderDash: [6, 6],
+            pointRadius: 0,
+            borderColor: 'rgba(0,0,0,0.35)'
+        });
+    }
+    return new Chart(ctx, cfg);
+}
+
+function renderCharts(series) {
+    // Destroy previous charts if exist
+    Object.values(state.charts).forEach(ch => ch && ch.destroy());
+    state.charts = {};
+
+    state.charts.mttr = makeLineChart(
+        document.getElementById('mttrChart').getContext('2d'),
+        series.labels, series.mttr, 'MTTR (min)', '#2563EB', 'Minutes', false, 20
+    );
+    state.charts.adoption = makeLineChart(
+        document.getElementById('adoptionChart').getContext('2d'),
+        series.labels, series.adoption, 'Adoption (%)', '#00774E', 'Percent', true, 90
+    );
+    state.charts.queries = makeLineChart(
+        document.getElementById('queriesChart').getContext('2d'),
+        series.labels, series.queries, 'Queries', '#F59E0B', 'Count', false, null
+    );
+    state.charts.reduction = makeLineChart(
+        document.getElementById('reductionChart').getContext('2d'),
+        series.labels, series.reduction, 'Time Reduction (%)', '#0099D2', 'Percent', true, 50
+    );
+}
+
+function showLoading(show) {
+    const overlay = document.getElementById('loadingOverlay');
+    overlay.classList.toggle('d-none', !show);
+}
+
+function updateAll() {
+    showLoading(true);
+    setTimeout(() => {
+        const series = generateTimeSeries(state.rangeDays);
+        updateKPIs(series);
+        renderCharts(series);
+        showLoading(false);
+        const toastEl = document.getElementById('updateToast');
+        const toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    }, 550); // simulate fetch delay
+}
+
+// Date range change
+document.getElementById('dateRangeSelect').addEventListener('change', (e) => {
+    state.rangeDays = parseInt(e.target.value, 10);
+    updateAll();
+});
+
+// Reset zoom buttons
+document.querySelectorAll('[data-action="reset-zoom"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-chart');
+        if (state.charts[key]) state.charts[key].resetZoom();
+    });
+});
+
+// Export dashboard
+function exportDashboard() {
+    if (state.isExporting) return;
+    state.isExporting = true;
+    const disableBtns = [document.getElementById('btnExport'), document.getElementById('headerExportBtn'), document.getElementById('footerExport')].filter(Boolean);
+    disableBtns.forEach(b => b.disabled = true);
+    Swal.fire({
+        title: 'Exporting dashboard...',
+        text: 'Preparing your report (CSV) for download',
+        icon: 'info',
+        allowOutsideClick: false,
+        didOpen: () => Swal.showLoading()
+    });
+    setTimeout(() => {
+        // Build a simple CSV of KPI summary (mock)
+        const rows = [
+            ['Metric', 'Value', 'Change vs Previous'],
+            ['MTTR', document.getElementById('kpiMttrValue').textContent, document.querySelector('#kpiMttrTrend .trend').textContent],
+            ['User Adoption', document.getElementById('kpiAdoptionValue').textContent, document.querySelector('#kpiAdoptionTrend .trend').textContent],
+            ['Task Time Reduction', document.getElementById('kpiReductionValue').textContent, document.querySelector('#kpiReductionTrend .trend').textContent],
+            ['Total Queries Processed', document.getElementById('kpiQueriesValue').textContent, document.querySelector('#kpiQueriesTrend .trend').textContent]
+        ];
+        const csv = rows.map(r => r.join(',')).join('\n');
+        const blob = new Blob([csv], {
+            type: 'text/csv;charset=utf-8;'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `performance_dashboard_export_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        Swal.fire({
+            title: 'Export complete',
+            text: 'Your CSV has been downloaded.',
+            icon: 'success',
+            timer: 1800,
+            showConfirmButton: false
+        });
+        state.isExporting = false;
+        disableBtns.forEach(b => b.disabled = false);
+    }, 1200);
+}
+document.getElementById('btnExport').addEventListener('click', exportDashboard);
+const headerExportBtn = document.getElementById('headerExportBtn');
+if (headerExportBtn) headerExportBtn.addEventListener('click', exportDashboard);
+const footerExport = document.getElementById('footerExport');
+if (footerExport) footerExport.addEventListener('click', exportDashboard);
+
+// Refresh button
+const btnRefresh = document.getElementById('btnRefresh');
+if (btnRefresh) btnRefresh.addEventListener('click', updateAll);
+
+// DataTable initialization
+let dt;
+
+function initDataTable() {
+    dt = new DataTable('#activityTable', {
+        paging: true,
+        pageLength: 5,
+        lengthChange: false,
+        ordering: true,
+        info: true,
+        searching: true,
+        language: {
+            search: '',
+            searchPlaceholder: ''
+        }
+    });
+    const search = document.getElementById('activitySearch');
+    search.addEventListener('input', () => dt.search(search.value).draw());
+}
+
+// Export table to CSV
+function exportTable() {
+    const table = document.getElementById('activityTable');
+    let csv = '';
+    const rows = table.querySelectorAll('tr');
+    rows.forEach((row, idx) => {
+        const cells = row.querySelectorAll(idx === 0 ? 'th' : 'td');
+        const values = Array.from(cells).slice(0, 5).map(c => '"' + c.textContent.trim().replace(/"/g, '""') + '"');
+        if (values.length) csv += values.join(',') + '\n';
+    });
+    const blob = new Blob([csv], {
+        type: 'text/csv;charset=utf-8;'
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `user_activity_${new Date().toISOString().slice(0,10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
+document.getElementById('btnExportTable').addEventListener('click', exportTable);
+
+// Initial load
+document.addEventListener('DOMContentLoaded', () => {
+    initDataTable();
+    updateAll();
+});
+  </script>
+ </body>
+</html>

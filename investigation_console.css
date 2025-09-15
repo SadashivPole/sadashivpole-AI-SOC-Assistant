@@ -1,0 +1,74 @@
+/* Investigation Console - page specific styles (investigation_console.css) */
+:root {
+    --header-height: 56px
+    }
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Make layout height consistent */
+main .card {
+    min-height: 480px
+    }
+/* Chat panel behavior */
+.chat-panel .conversation-log {
+    max-height: calc(60vh)
+    }
+@media (min-height: 840px) {
+    .chat-panel .conversation-log {
+        max-height: calc(70vh)
+        }
+    }
+.chat-panel .card-footer {
+    position: sticky;
+    bottom: 0;
+    background: var(--surface-muted)
+    }
+/* View switcher tweaks */
+.view-switcher .option {
+    cursor: pointer;
+    user-select: none
+    }
+/* Mobile sidebar toggle behavior (since provided sidebar is not offcanvas) */
+@media (max-width: 991.98px) {
+    #sidebarMain {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        z-index: 1045;
+        transform: translatex(-110%);
+        transition: transform 0.25s ease
+        }
+    #sidebarMain.mobile-open {
+        transform: translatex(0);
+        box-shadow: var(--shadow-2)
+        }
+    body {
+        overflow-x: hidden
+        }
+    }
+/* Table header clickable style */
+#resultsTable thead th[role="button"] {
+    cursor: pointer;
+    user-select: none
+    }
+#resultsTable thead th[role="button"]:hover {
+    background: var(--neutral-soft)
+    }
+/* Offcanvas width */
+#historyDrawer {
+    --bs-offcanvas-width: 360px
+    }
+/* Map container fix */
+#geoMap {
+    min-height: 300px
+    }
+/* Improve small controls spacing */
+.form-label {
+    font-weight: 600
+    }
+/* Ensure footer stays visually separated */
+footer {
+    position: relative;
+    z-index: 1
+    }

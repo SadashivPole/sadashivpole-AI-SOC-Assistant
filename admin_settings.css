@@ -1,0 +1,52 @@
+/* admin_settings.css - page-specific styles for Admin Settings */
+/* Layout adjustments to ensure main content and sidebar fit nicely */
+@media (min-width: 992px) {
+    main {
+        padding: 16px 24px
+        }
+    }
+/* Enhance tab spacing */
+#integrationTabs .nav-link {
+    font-weight: 600
+    }
+#integrationTabs .nav-link.active {
+    color: var(--text-strong)
+    }
+/* Badges within cards */
+#integrationsPanel .card-header .badge, #systemPanel .card-header .badge {
+    font-weight: 600
+    }
+/* Sortable header indication */
+#eventsTable thead th.sortable {
+    user-select: none
+    }
+#eventsTable thead th.sortable:hover {
+    color: var(--color-primary)
+    }
+/* Feedback area appearance */
+#feedbackArea {
+    border: 1px solid var(--border-color)
+    }
+/* Ensure images in headers remain aligned */
+#integrationsPanel .card-header img {
+    width: 28px;
+    height: 28px;
+    object-fit: cover
+    }
+/* Small improvements for input group buttons */
+.toggle-visibility-icon {
+    border-color: var(--border-color)
+    }
+.toggle-visibility-icon:hover {
+    background: var(--neutral-soft)
+    }
+/* Make footer stick to bottom when content is short */
+html, body {
+    height: 100%
+    }
+/* Responsive spacing for cards inside system panel */
+@media (max-width: 767.98px) {
+    #systemPanel .card {
+        margin-bottom: 8px
+        }
+    }

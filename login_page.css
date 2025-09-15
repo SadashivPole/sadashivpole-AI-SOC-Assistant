@@ -1,0 +1,55 @@
+/* login_page.css - Page-specific styles for Login Page */
+/* Brand typography override for this page */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Branding */
+.auth-logo {
+    object-fit: cover;
+    border: 2px solid #fff
+    }
+.brand-title {
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--text-strong)
+    }
+/* Input group visuals */
+.input-group-text {
+    background: var(--surface-muted);
+    color: var(--text-muted)
+    }
+.password-input-field {
+    letter-spacing: 0.02em
+    }
+#togglePassword {
+    border-left: 1px solid var(--border-color)
+    }
+#togglePassword:hover {
+    background: var(--neutral-soft)
+    }
+/* Buttons */
+#submitBtn, #ssoBtn {
+    min-height: 44px;
+    font-weight: 600
+    }
+#ssoBtn {
+    color: var(--text-on-info)
+    }
+/* Alerts spacing adjustment inside the form container */
+.login-form-container .alert {
+    margin-bottom: var(--space-3)
+    }
+/* Demo credentials card */
+.card .title {
+    font-weight: 600;
+    color: var(--text-strong)
+    }
+.table-theme code {
+    color: var(--text-strong)
+    }
+/* Responsive tweaks */
+@media (max-width: 575.98px) {
+    .login-form-container {
+        padding: var(--space-4)
+        }
+    }

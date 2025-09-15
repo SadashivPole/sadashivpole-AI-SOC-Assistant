@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Audit Log | Management &amp; Governance
+  </title>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" rel="stylesheet"/>
+    <link href="style.css" rel="stylesheet"/>
+    <link href="audit_log.css" rel="stylesheet"/>
+   </link>
+  </link>
+ </head>
+ <body class="d-flex flex-column min-vh-100">
+  <!-- Header (Top Navigation) -->
+  <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#2563EB;">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMain" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#sidebarMain" data-bs-toggle="offcanvas" id="sidebarToggleBtn" type="button">
+     <i class="fas fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./performance_dashboard.html">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo/80/28';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:28px;"/>
+     <span>
+      Management &amp; Governance
+     </span>
+    </a>
+    <form class="d-none d-md-flex mx-auto" role="search" style="max-width: 480px;">
+     <input aria-label="Search" class="form-control form-control-sm" id="topSearch" placeholder="Search users, actions, reports" type="search"/>
+    </form>
+    <ul class="navbar-nav ms-auto align-items-center">
+     <li class="nav-item me-2 d-none d-md-block">
+      <a class="btn btn-sm btn-warning text-dark" href="#export" id="exportTopBtn">
+       <i class="fas fa-file-export me-1">
+       </i>
+       Export
+      </a>
+     </li>
+     <li class="nav-item me-2 d-none d-md-block">
+      <button class="btn btn-sm btn-outline-light" id="refreshBtn">
+       <i class="fas fa-sync me-1">
+       </i>
+       Refresh
+      </button>
+     </li>
+     <li class="nav-item dropdown me-2">
+      <a aria-expanded="false" class="nav-link" data-bs-toggle="dropdown" href="#" id="notifDropdown" role="button">
+       <i class="fas fa-bell">
+       </i>
+      </a>
+      <ul aria-labelledby="notifDropdown" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        Notifications
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         Weekly KPI report is ready
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#">
+         New audit anomalies detected
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="nav-item dropdown">
+      <a aria-expanded="false" class="nav-link dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" id="userMenuMgmt" role="button">
+       <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/user/24/24';" src="https://www.gravatar.com/avatar?d=mp" style="width:24px;height:24px;"/>
+       <span>
+        {{UserName}}
+       </span>
+      </a>
+      <ul aria-labelledby="userMenuMgmt" class="dropdown-menu dropdown-menu-end">
+       <li class="dropdown-header">
+        {{UserRole}}
+       </li>
+       <li>
+        <a class="dropdown-item" href="./admin_settings.html">
+         <i class="fas fa-cog me-2">
+         </i>
+         Settings
+        </a>
+       </li>
+       <li>
+        <a class="dropdown-item" href="#reports-center">
+         <i class="fas fa-folder-open me-2">
+         </i>
+         Reports Center
+        </a>
+       </li>
+       <li>
+        <hr class="dropdown-divider"/>
+       </li>
+       <li>
+        <a class="dropdown-item" href="./login_page.html">
+         <i class="fas fa-sign-out-alt me-2">
+         </i>
+         Logout
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </div>
+  </header>
+  <div class="flex-grow-1 d-flex">
+   <!-- Sidebar (Left) - Use provided sidebar component with adjusted links -->
+   <aside class="d-flex flex-column flex-shrink-0 bg-light border-end" id="sidebarMain" style="width: 280px; min-height: 100vh;">
+    <div class="p-3 border-bottom d-flex align-items-center">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/logo2/32/32';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:32px;"/>
+     <div>
+      <div class="fw-semibold" style="color:#2563EB;">
+       Management
+      </div>
+      <small class="text-muted">
+       Manager / Leadership
+      </small>
+     </div>
+    </div>
+    <div class="px-3 py-3 border-bottom">
+     <div class="d-flex align-items-center">
+      <img alt="avatar" class="rounded-circle me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/user2/36/36';" src="https://www.gravatar.com/avatar?d=mp" style="width:36px;height:36px;"/>
+      <div>
+       <div class="fw-semibold">
+        {{UserName}}
+       </div>
+       <small class="text-muted">
+        {{UserRole}}
+       </small>
+      </div>
+     </div>
+    </div>
+    <nav class="flex-grow-1 overflow-auto pt-2">
+     <ul class="nav nav-pills flex-column mb-auto" id="mgmtNav">
+      <li class="nav-item">
+       <a class="nav-link d-flex align-items-center" href="./performance_dashboard.html">
+        <i class="fas fa-tachometer-alt me-2">
+        </i>
+        Performance Dashboard
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link d-flex align-items-center active" href="./audit_log.html">
+        <i class="fas fa-clipboard-check me-2">
+        </i>
+        Audit Log
+       </a>
+      </li>
+      <li>
+       <a aria-controls="analyticsMenu" aria-expanded="true" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#analyticsMenu" role="button">
+        <i class="fas fa-chart-area me-2">
+        </i>
+        Analytics
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse show ps-4" id="analyticsMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#mttr">
+           <i class="fas fa-stopwatch me-2">
+           </i>
+           MTTR Trends
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#adoption">
+           <i class="fas fa-users me-2">
+           </i>
+           User Adoption
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#activity">
+           <i class="fas fa-user-clock me-2">
+           </i>
+           User Activity
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+      <li>
+       <a aria-controls="governanceMenu" aria-expanded="false" class="nav-link d-flex align-items-center" data-bs-toggle="collapse" href="#governanceMenu" role="button">
+        <i class="fas fa-shield-alt me-2">
+        </i>
+        Governance
+        <i class="fas fa-chevron-down ms-auto small">
+        </i>
+       </a>
+       <div class="collapse ps-4" id="governanceMenu">
+        <ul class="nav flex-column">
+         <li>
+          <a class="nav-link" href="#reports">
+           <i class="fas fa-file-export me-2">
+           </i>
+           Reports
+          </a>
+         </li>
+         <li>
+          <a class="nav-link" href="#compliance">
+           <i class="fas fa-balance-scale me-2">
+           </i>
+           Compliance
+          </a>
+         </li>
+        </ul>
+       </div>
+      </li>
+     </ul>
+    </nav>
+    <div class="mt-auto p-3 border-top small d-flex justify-content-between">
+     <a class="text-decoration-none" href="#export">
+      <i class="fas fa-file-export me-1" style="color:#F59E0B;">
+      </i>
+      Export
+     </a>
+     <a class="text-decoration-none" href="#help">
+      <i class="fas fa-question-circle me-1" style="color:#F59E0B;">
+      </i>
+      Help
+     </a>
+    </div>
+    <style>
+     #sidebarMain .nav-link { color:#374151; border-radius:.375rem; }
+        #sidebarMain .nav-link:hover { background-color: rgba(37,99,235,.08); color:#111827; }
+        #sidebarMain .nav-link.active, #sidebarMain a[href='./performance_dashboard.html'].active, #sidebarMain a[href='./audit_log.html'].active { background-color: rgba(37,99,235,.12); color:#2563EB; font-weight:600; }
+    </style>
+   </aside>
+   <!-- Main Content -->
+   <main class="flex-grow-1">
+    <div class="container-fluid py-3 py-lg-4">
+     <!-- Breadcrumb + Title -->
+     <nav aria-label="breadcrumb" class="breadcrumb mb-2">
+      <ol class="breadcrumb mb-0">
+       <li class="breadcrumb-item">
+        <a href="./performance_dashboard.html">
+         Home
+        </a>
+       </li>
+       <li aria-current="page" class="breadcrumb-item active">
+        Audit Log
+       </li>
+      </ol>
+     </nav>
+     <div class="page-header">
+      <div class="d-flex align-items-center gap-2">
+       <h1 class="page-title mb-0">
+        Audit Log
+       </h1>
+       <span class="badge-soft info">
+        Compliance View
+       </span>
+      </div>
+      <div class="view-switcher d-none d-md-inline-flex">
+       <span class="option active">
+        <i class="fa-solid fa-table">
+        </i>
+        Table
+       </span>
+       <span class="option">
+        <i class="fa-solid fa-grip">
+        </i>
+        Tiles
+       </span>
+      </div>
+     </div>
+     <!-- System Feedback / Alerts area -->
+     <div class="mb-3" id="feedbackArea">
+      <div class="alert alert-info d-flex align-items-center" role="alert">
+       <i class="fa-solid fa-circle-info me-2">
+       </i>
+       <div>
+        This is a demo view with mock data. Use the filters below to explore functionality. Export respects active filters.
+       </div>
+      </div>
+     </div>
+     <!-- Filters Card -->
+     <div class="card mb-3">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-filter text-primary">
+        </i>
+        <span class="widget-title">
+         Filter Controls
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-light btn-sm" id="clearFiltersBtn">
+         <i class="fa-solid fa-eraser me-1">
+         </i>
+         Clear
+        </button>
+        <button class="btn btn-warning btn-sm text-dark" id="exportBtn">
+         <i class="fa-solid fa-file-export me-1">
+         </i>
+         Export CSV
+        </button>
+       </div>
+      </div>
+      <div class="card-body">
+       <form class="row gy-3 align-items-end" id="filtersForm">
+        <div class="col-12 col-lg-4">
+         <label class="form-label" for="dateRange">
+          Date Range (max 90 days)
+         </label>
+         <div class="input-group">
+          <span class="input-group-text">
+           <i class="fa-regular fa-calendar">
+           </i>
+          </span>
+          <input aria-label="Date Range" class="form-control" id="dateRange" placeholder="Select date range" type="text"/>
+         </div>
+         <div class="form-text">
+          Presets available in picker
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <label class="form-label" for="userSelect">
+          User
+         </label>
+         <select class="form-select" id="userSelect" multiple="">
+         </select>
+         <div class="form-text">
+          Multi-select users
+         </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+         <label class="form-label" for="actionSelect">
+          Action Type
+         </label>
+         <select class="form-select" id="actionSelect" multiple="">
+         </select>
+        </div>
+        <div class="col-12 col-lg-8">
+         <label class="form-label" for="keywordInput">
+          Free-text Search
+         </label>
+         <div class="input-group">
+          <span class="input-group-text">
+           <i class="fa-solid fa-magnifying-glass">
+           </i>
+          </span>
+          <input class="form-control" id="keywordInput" placeholder="Search keywords (e.g., IP, username, query snippet)" type="search"/>
+          <button class="btn btn-primary" id="searchBtn" type="button">
+           <i class="fa-solid fa-search me-1">
+           </i>
+           Search
+          </button>
+         </div>
+        </div>
+        <div class="col-12 col-lg-4">
+         <div class="d-flex gap-2 align-items-end justify-content-lg-end">
+          <button class="btn btn-success" id="applyFiltersBtn" type="button">
+           <i class="fa-solid fa-filter-circle-check me-1">
+           </i>
+           Apply Filters
+          </button>
+          <button class="btn btn-outline-primary" id="quickLast24Btn" type="button">
+           <i class="fa-regular fa-clock me-1">
+           </i>
+           Last 24h
+          </button>
+         </div>
+        </div>
+       </form>
+      </div>
+     </div>
+     <!-- Quick Insight Chart -->
+     <div class="card mb-3">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-chart-line text-primary">
+        </i>
+        <span class="widget-title">
+         Events over time (filtered)
+        </span>
+       </div>
+       <div class="small text-muted">
+        Interactive: hover for details
+       </div>
+      </div>
+      <div class="card-body">
+       <canvas height="100" id="eventsChart">
+       </canvas>
+      </div>
+     </div>
+     <!-- Audit Log Table Card -->
+     <div class="card" id="auditTableCard">
+      <div class="card-header">
+       <div class="d-flex align-items-center gap-2">
+        <i class="fa-solid fa-clipboard-check text-primary">
+        </i>
+        <span class="widget-title">
+         Audit Results
+        </span>
+       </div>
+       <div class="d-flex align-items-center gap-3">
+        <div class="small text-muted" id="resultsSummary">
+         Showing 0-0 of 0
+        </div>
+        <div>
+         <button class="btn btn-light btn-sm" id="resetSortBtn" title="Reset sorting">
+          <i class="fa-solid fa-arrow-rotate-left">
+          </i>
+         </button>
+        </div>
+       </div>
+      </div>
+      <div class="card-body p-0 position-relative">
+       <div class="loading-overlay d-none" id="tableLoadingOverlay">
+        <div aria-hidden="true" class="spinner-border text-primary" role="status">
+        </div>
+        <div class="mt-2 small text-muted">
+         Loading...
+        </div>
+       </div>
+       <div class="table-responsive">
+        <table class="table table-theme mb-0 align-middle" id="auditTable">
+         <thead>
+          <tr>
+           <th class="sortable" data-col="timestamp" scope="col">
+            Timestamp
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-col="user" scope="col">
+            User
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-col="sourceIp" scope="col">
+            Source IP
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-col="actionType" scope="col">
+            Action
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th class="sortable" data-col="status" scope="col">
+            Status
+            <i class="fa-solid fa-sort ms-1">
+            </i>
+           </th>
+           <th scope="col">
+            Summary
+           </th>
+           <th class="text-end" scope="col">
+            Actions
+           </th>
+          </tr>
+         </thead>
+         <tbody id="auditTbody">
+          <!-- rows injected by JS -->
+         </tbody>
+        </table>
+       </div>
+      </div>
+      <div class="card-footer d-flex flex-wrap align-items-center justify-content-between gap-2">
+       <div class="small text-muted" id="pageInfo">
+        Page 1 of 1
+       </div>
+       <nav aria-label="Audit pagination">
+        <ul class="pagination pagination-sm mb-0" id="pagination">
+         <!-- pagination injected by JS -->
+        </ul>
+       </nav>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+  <!-- Footer -->
+  <footer class="border-top py-2 px-3 d-flex flex-wrap align-items-center justify-content-between bg-light">
+   <div class="d-flex align-items-center">
+    <span class="badge me-2" style="background-color:#2563EB;">
+     Manager
+    </span>
+    <small class="text-muted">
+     Track MTTR, adoption, and audit compliance.
+    </small>
+   </div>
+   <div class="small d-flex align-items-center gap-2">
+    <a class="me-2 text-decoration-none" href="./login_page.html">
+     Logout
+    </a>
+    <a class="me-2 text-decoration-none" href="#terms">
+     Terms
+    </a>
+    <a class="me-2 text-decoration-none" href="#privacy">
+     Privacy
+    </a>
+    <a class="btn btn-sm btn-outline-primary" href="#" id="exportFooterBtn">
+     <i class="fas fa-download me-1" style="color:#F59E0B;">
+     </i>
+     Export View
+    </a>
+   </div>
+  </footer>
+  <!-- Toast Container -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1060">
+   <div aria-atomic="true" aria-live="assertive" class="toast" id="actionToast" role="alert">
+    <div class="toast-header">
+     <i class="fa-solid fa-circle-check text-success me-2">
+     </i>
+     <strong class="me-auto">
+      Action
+     </strong>
+     <small>
+      now
+     </small>
+     <button aria-label="Close" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" type="button">
+     </button>
+    </div>
+    <div class="toast-body">
+     Filters applied successfully.
+    </div>
+   </div>
+  </div>
+  <!-- Backdrop for mobile sidebar -->
+  <div class="sidebar-backdrop d-lg-none" id="sidebarBackdrop">
+  </div>
+  <!-- Vendor JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/plugins/confirmDate/confirmDate.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js">
+  </script>
+  <!-- Page Script -->
+  <script>
+   // State
+const state = {
+    users: [],
+    actionTypes: ['Login', 'Query Run', 'SOAR Trigger', 'User Update', 'Export', 'Policy Change'],
+    filters: {
+        startDate: null,
+        endDate: null,
+        selectedUsers: [],
+        selectedActionTypes: [],
+        keyword: ''
+    },
+    table: {
+        sortCol: 'timestamp',
+        sortDir: 'desc',
+        currentPage: 1,
+        pageSize: 8,
+        expandedId: null
+    },
+    rawData: [],
+    filteredData: [],
+    isLoading: false,
+    chart: null
+};
+
+// Utility formatters
+const fmtDate = (iso) => new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+}).format(new Date(iso));
+const escapeCsv = (val) => '"' + String(val).replace(/"/g, '""') + '"';
+
+// Initialize after DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+    setupMobileSidebar();
+    initPickers();
+    initSelects();
+    seedMockData();
+    bindFilterEvents();
+    bindSorting();
+    bindExport();
+    bindMisc();
+});
+
+function setupMobileSidebar() {
+    const sidebar = document.getElementById('sidebarMain');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const toggleBtn = document.getElementById('sidebarToggleBtn');
+    const openSidebar = () => {
+        sidebar.classList.add('open');
+        backdrop.classList.add('show');
+    };
+    const closeSidebar = () => {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('show');
+    };
+    toggleBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        openSidebar();
+    });
+    backdrop.addEventListener('click', closeSidebar);
+    // Close when navigating links on small screens
+    sidebar.addEventListener('click', (e) => {
+        if (e.target.matches('a.nav-link')) closeSidebar();
+    });
+}
+
+function initPickers() {
+    const maxRangeDays = 90;
+    const now = new Date();
+    const yesterday = new Date(Date.now() - 24 * 3600 * 1000);
+    const fp = flatpickr('#dateRange', {
+        mode: 'range',
+        dateFormat: 'Y-m-d H:i',
+        enableTime: true,
+        time_24hr: true,
+        defaultDate: [yesterday, now],
+        onChange: (selectedDates) => {
+            if (selectedDates.length === 2) {
+                const diffDays = Math.abs((selectedDates[1] - selectedDates[0]) / (1000 * 3600 * 24));
+                if (diffDays > maxRangeDays) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Range too large',
+                        text: 'Please select a date range within 90 days for performance reasons.'
+                    });
+                    fp.clear();
+                    return;
+                }
+                state.filters.startDate = selectedDates[0];
+                state.filters.endDate = selectedDates[1];
+            }
+        }
+    });
+    document.getElementById('quickLast24Btn').addEventListener('click', () => {
+        const end = new Date();
+        const start = new Date(end.getTime() - 24 * 3600 * 1000);
+        fp.setDate([start, end], true);
+        state.filters.startDate = start;
+        state.filters.endDate = end;
+        applyFilters();
+    });
+}
+
+let userChoices, actionChoices;
+
+function initSelects() {
+    userChoices = new Choices('#userSelect', {
+        removeItemButton: true,
+        placeholder: true,
+        placeholderValue: 'Select users'
+    });
+    actionChoices = new Choices('#actionSelect', {
+        removeItemButton: true,
+        placeholder: true,
+        placeholderValue: 'Select action types'
+    });
+    // Load action types now
+    actionChoices.setChoices(state.actionTypes.map(a => ({
+        value: a,
+        label: a
+    })), 'value', 'label', true);
+    // Simulate fetching users
+    setTimeout(() => {
+        state.users = [{
+            id: 'j.doe',
+            name: 'John Doe'
+        }, {
+            id: 'a.singh',
+            name: 'Anita Singh'
+        }, {
+            id: 'l.chen',
+            name: 'Li Chen'
+        }, {
+            id: 'm.garcia',
+            name: 'Maria Garcia'
+        }, {
+            id: 's.khan',
+            name: 'Sameer Khan'
+        }, {
+            id: 'c.nguyen',
+            name: 'Chi Nguyen'
+        }];
+        userChoices.setChoices(state.users.map(u => ({
+            value: u.id,
+            label: u.name
+        })), 'value', 'label', true);
+    }, 300);
+}
+
+function seedMockData() {
+    // Create 40 mock rows over past ~30 days
+    const users = ['John Doe', 'Anita Singh', 'Li Chen', 'Maria Garcia', 'Sameer Khan', 'Chi Nguyen'];
+    const ips = ['10.0.5.12', '10.0.5.77', '172.16.23.8', '192.168.1.44', '172.16.99.2', '10.10.1.9'];
+    const actions = state.actionTypes;
+    const statuses = ['Success', 'Failed'];
+    const summaries = [
+        'Ran query: failed logins by source IP',
+        'Triggered SOAR: block IP on firewall',
+        'User login via SSO',
+        'Updated policy: retention 90 days',
+        'Exported audit report',
+        'Queried: admin role assignments'
+    ];
+    const now = Date.now();
+    const dayMs = 24 * 3600 * 1000;
+    const data = [];
+    for (let i = 1; i <= 40; i++) {
+        const ts = new Date(now - Math.floor(Math.random() * 30) * dayMs - Math.floor(Math.random() * 86400000));
+        const idx = Math.floor(Math.random() * users.length);
+        const action = actions[Math.floor(Math.random() * actions.length)];
+        const status = statuses[Math.random() < 0.82 ? 0 : 1];
+        const det = action === 'Query Run' ? {
+            nlQuery: 'Show failed logins from RFC1918 ranges in last 24h',
+            translatedQuery: 'index=auth sourcetype=linux:auth action=failure src IN (10.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12) earliest=-24h'
+        } : action === 'SOAR Trigger' ? {
+            targetEntity: 'IP 172.16.23.8',
+            playbook: 'Block IP on Firewall',
+            vendor: 'Palo Alto'
+        } : action === 'Login' || action === 'Login' ? {
+            method: 'SSO',
+            provider: 'Okta'
+        } : action === 'Export' ? {
+            format: 'CSV',
+            rows: 1287
+        } : action === 'Policy Change' ? {
+            policy: 'Data retention days',
+            oldValue: 60,
+            newValue: 90
+        } : {};
+        data.push({
+            id: i,
+            timestamp: ts.toISOString(),
+            user: users[idx],
+            userId: users[idx].toLowerCase().split(' ').map(s => s[0]).join('.') + (idx + 1),
+            sourceIp: ips[idx],
+            actionType: action,
+            status: status,
+            summary: summaries[Math.floor(Math.random() * summaries.length)],
+            details: det
+        });
+    }
+    state.rawData = data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    applyFilters();
+    initChart();
+}
+
+function bindFilterEvents() {
+    document.getElementById('applyFiltersBtn').addEventListener('click', applyFilters);
+    document.getElementById('searchBtn').addEventListener('click', () => {
+        state.filters.keyword = document.getElementById('keywordInput').value.trim();
+        applyFilters();
+    });
+    document.getElementById('keywordInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            state.filters.keyword = e.target.value.trim();
+            applyFilters();
+        }
+    });
+    document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+        // Clear UI controls
+        document.getElementById('dateRange')._flatpickr?.clear();
+        userChoices?.removeActiveItems();
+        actionChoices?.removeActiveItems();
+        document.getElementById('keywordInput').value = '';
+        // Clear state
+        state.filters = {
+            startDate: null,
+            endDate: null,
+            selectedUsers: [],
+            selectedActionTypes: [],
+            keyword: ''
+        };
+        applyFilters();
+    });
+}
+
+function bindExport() {
+    const doExport = () => {
+        Swal.fire({
+            title: 'Export CSV',
+            text: 'Generating CSV for current view...',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        setTimeout(() => {
+            const csv = generateCsv(state.filteredData);
+            const blob = new Blob([csv], {
+                type: 'text/csv;charset=utf-8;'
+            });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'audit_logs_export.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            Swal.fire({
+                icon: 'success',
+                title: 'Export complete',
+                text: 'Your CSV has been downloaded.'
+            });
+        }, 600);
+    };
+    document.getElementById('exportBtn').addEventListener('click', doExport);
+    document.getElementById('exportTopBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        doExport();
+    });
+    document.getElementById('exportFooterBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        doExport();
+    });
+}
+
+function bindMisc() {
+    document.getElementById('refreshBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        simulateLoad(() => applyFilters());
+    });
+    document.getElementById('topSearch').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            document.getElementById('keywordInput').value = e.target.value;
+            state.filters.keyword = e.target.value;
+            applyFilters();
+        }
+    });
+    document.getElementById('resetSortBtn').addEventListener('click', () => {
+        state.table.sortCol = 'timestamp';
+        state.table.sortDir = 'desc';
+        applyFilters();
+    });
+}
+
+function bindSorting() {
+    document.querySelectorAll('#auditTable thead th.sortable').forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', () => {
+            const col = th.dataset.col;
+            if (state.table.sortCol === col) {
+                state.table.sortDir = state.table.sortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                state.table.sortCol = col;
+                state.table.sortDir = 'asc';
+            }
+            applyFilters();
+        });
+    });
+}
+
+function applyFilters() {
+    simulateLoad(() => {
+        // Gather selections
+        state.filters.selectedUsers = userChoices?.getValue(true) || [];
+        state.filters.selectedActionTypes = actionChoices?.getValue(true) || [];
+        const kw = (document.getElementById('keywordInput').value || '').toLowerCase();
+        state.filters.keyword = kw;
+        let rows = [...state.rawData];
+        // Date
+        if (state.filters.startDate && state.filters.endDate) {
+            const start = state.filters.startDate.getTime();
+            const end = state.filters.endDate.getTime();
+            rows = rows.filter(r => {
+                const t = new Date(r.timestamp).getTime();
+                return t >= start && t <= end;
+            });
+        }
+        // Users
+        if (state.filters.selectedUsers.length) {
+            const set = new Set(state.filters.selectedUsers);
+            rows = rows.filter(r => set.has(r.userId));
+        }
+        // Action types
+        if (state.filters.selectedActionTypes.length) {
+            const set = new Set(state.filters.selectedActionTypes);
+            rows = rows.filter(r => set.has(r.actionType));
+        }
+        // Keyword
+        if (kw) {
+            rows = rows.filter(r => (r.user.toLowerCase().includes(kw) ||
+                r.userId.toLowerCase().includes(kw) ||
+                r.sourceIp.toLowerCase().includes(kw) ||
+                r.actionType.toLowerCase().includes(kw) ||
+                r.summary.toLowerCase().includes(kw) ||
+                JSON.stringify(r.details).toLowerCase().includes(kw)));
+        }
+        // Sort
+        const {
+            sortCol,
+            sortDir
+        } = state.table;
+        rows.sort((a, b) => {
+            const va = a[sortCol];
+            const vb = b[sortCol];
+            if (sortCol === 'timestamp') {
+                return sortDir === 'asc' ? new Date(va) - new Date(vb) : new Date(vb) - new Date(va);
+            }
+            if (va < vb) return sortDir === 'asc' ? -1 : 1;
+            if (va > vb) return sortDir === 'asc' ? 1 : -1;
+            return 0;
+        });
+        state.filteredData = rows;
+        state.table.currentPage = 1;
+        renderTable();
+        renderPagination();
+        updateResultsSummary();
+        updateChart();
+        showAppliedToast();
+    });
+}
+
+function renderTable() {
+    const tbody = document.getElementById('auditTbody');
+    tbody.innerHTML = '';
+    const {
+        currentPage,
+        pageSize
+    } = state.table;
+    const startIdx = (currentPage - 1) * pageSize;
+    const pageRows = state.filteredData.slice(startIdx, startIdx + pageSize);
+    pageRows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = 'log-row';
+        tr.setAttribute('data-id', r.id);
+        tr.innerHTML = `
+          <td><span class="text-nowrap">${fmtDate(r.timestamp)}</span></td>
+          <td>${r.user}</td>
+          <td><code>${r.sourceIp}</code></td>
+          <td>${r.actionType}</td>
+          <td>${renderStatusBadge(r.status)}</td>
+          <td>${r.summary}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-light me-1 btn-expand" title="Toggle details"><i class="fa-solid fa-caret-down"></i></button>
+            <button class="btn btn-sm btn-outline-primary" title="View details"><i class="fa-regular fa-eye"></i></button>
+          </td>`;
+        tbody.appendChild(tr);
+        const detailsTr = document.createElement('tr');
+        detailsTr.className = 'detail-row';
+        detailsTr.innerHTML = `<td colspan="7">${renderDetails(r)}</td>`;
+        tbody.appendChild(detailsTr);
+        tr.addEventListener('click', (e) => {
+            if (!e.target.closest('button') || e.target.closest('.btn-expand')) {
+                detailsTr.classList.toggle('show');
+                tr.classList.toggle('expanded');
+                const icon = tr.querySelector('.btn-expand i');
+                if (icon) icon.classList.toggle('fa-rotate-180');
+            }
+        });
+    });
+}
+
+function renderDetails(r) {
+    const fields = Object.entries(r.details || {}).map(([k, v]) => `<div><span class="text-muted">${toTitle(k)}:</span> <span class="fw-semibold">${v}</span></div>`).join('');
+    return `
+        <div class="p-3 bg-light rounded border">
+          <div class="d-flex flex-wrap gap-3 small">
+            <div><span class="text-muted">User ID:</span> <code>${r.userId}</code></div>
+            <div><span class="text-muted">Timestamp:</span> <span class="fw-semibold">${fmtDate(r.timestamp)}</span></div>
+            <div><span class="text-muted">Status:</span> ${renderStatusBadge(r.status)}</div>
+            <div><span class="text-muted">Action:</span> <span class="fw-semibold">${r.actionType}</span></div>
+          </div>
+          <hr/>
+          <div class="row g-3 small">
+            <div class="col-12 col-md-6">
+              <div class="text-muted mb-1">Summary</div>
+              <div>${r.summary}</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="text-muted mb-1">Details</div>
+              <div class="d-grid gap-1">${fields || '<span class="text-muted">No additional details</span>'}</div>
+            </div>
+          </div>
+        </div>`;
+}
+
+function renderStatusBadge(status) {
+    const cls = status === 'Success' ? 'success' : status === 'Failed' ? 'error' : 'info';
+    const icon = status === 'Success' ? 'fa-circle-check' : status === 'Failed' ? 'fa-triangle-exclamation' : 'fa-circle-info';
+    return `<span class="badge-soft ${cls}"><i class="fa-solid ${icon}"></i> ${status}</span>`;
+}
+
+function renderPagination() {
+    const ul = document.getElementById('pagination');
+    ul.innerHTML = '';
+    const totalPages = Math.max(1, Math.ceil(state.filteredData.length / state.table.pageSize));
+    const cp = state.table.currentPage;
+    const addItem = (label, page, disabled = false, active = false) => {
+        const li = document.createElement('li');
+        li.className = `page-item ${disabled?'disabled':''} ${active?'active':''}`;
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.href = '#';
+        a.textContent = label;
+        a.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!disabled) {
+                state.table.currentPage = page;
+                renderTable();
+                renderPagination();
+                updateResultsSummary();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        li.appendChild(a);
+        ul.appendChild(li);
+    };
+    addItem('«', Math.max(1, cp - 1), cp === 1);
+    const range = getPageRange(cp, totalPages, 5);
+    range.forEach(p => addItem(String(p), p, false, p === cp));
+    addItem('»', Math.min(totalPages, cp + 1), cp === totalPages);
+    document.getElementById('pageInfo').textContent = `Page ${cp} of ${totalPages}`;
+}
+
+function getPageRange(current, total, maxLength) {
+    const half = Math.floor(maxLength / 2);
+    let start = Math.max(1, current - half);
+    let end = Math.min(total, start + maxLength - 1);
+    if (end - start + 1 < maxLength) start = Math.max(1, end - maxLength + 1);
+    const range = [];
+    for (let i = start; i <= end; i++) range.push(i);
+    return range;
+}
+
+function updateResultsSummary() {
+    const total = state.filteredData.length;
+    const {
+        currentPage,
+        pageSize
+    } = state.table;
+    const start = total ? (currentPage - 1) * pageSize + 1 : 0;
+    const end = Math.min(total, currentPage * pageSize);
+    document.getElementById('resultsSummary').textContent = `Showing ${start}-${end} of ${total}`;
+}
+
+function generateCsv(rows) {
+    const headers = ['Timestamp', 'User', 'User ID', 'Source IP', 'Action', 'Status', 'Summary'];
+    const lines = [headers.join(',')];
+    rows.forEach(r => {
+        lines.push([
+            escapeCsv(fmtDate(r.timestamp)),
+            escapeCsv(r.user),
+            escapeCsv(r.userId),
+            escapeCsv(r.sourceIp),
+            escapeCsv(r.actionType),
+            escapeCsv(r.status),
+            escapeCsv(r.summary)
+        ].join(','));
+    });
+    return lines.join('\n');
+}
+
+function simulateLoad(callback) {
+    const overlay = document.getElementById('tableLoadingOverlay');
+    overlay.classList.remove('d-none');
+    setTimeout(() => {
+        overlay.classList.add('d-none');
+        callback();
+    }, 350);
+}
+
+function toTitle(s) {
+    return s.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/^./, c => c.toUpperCase()).trim();
+}
+
+function showAppliedToast() {
+    const toastEl = document.getElementById('actionToast');
+    const toast = bootstrap.Toast.getOrCreateInstance(toastEl, {
+        delay: 1800
+    });
+    toast.show();
+}
+
+// Chart.js initialization
+function initChart() {
+    const ctx = document.getElementById('eventsChart');
+    state.chart = new Chart(ctx, {
+        type: 'line',
+        data: buildChartData(state.filteredData),
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    mode: 'index',
+                    intersect: false
+                }
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+}
+
+function updateChart() {
+    if (!state.chart) return;
+    const chartData = buildChartData(state.filteredData);
+    state.chart.data = chartData;
+    state.chart.update();
+}
+
+function buildChartData(rows) {
+    // group counts by day
+    const counts = new Map();
+    rows.forEach(r => {
+        const d = new Date(r.timestamp);
+        const key = new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString().slice(0, 10);
+        counts.set(key, (counts.get(key) || 0) + 1);
+    });
+    const labels = Array.from(counts.keys()).sort();
+    return {
+        labels,
+        datasets: [{
+            label: 'Events',
+            data: labels.map(l => counts.get(l)),
+            fill: false,
+            borderColor: 'rgba(37,99,235,1)',
+            backgroundColor: 'rgba(37,99,235,0.2)',
+            tension: 0.25,
+            pointRadius: 2
+        }]
+    };
+}
+  </script>
+ </body>
+</html>

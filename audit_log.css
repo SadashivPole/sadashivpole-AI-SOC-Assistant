@@ -1,0 +1,78 @@
+/* Audit Log Page Specific Styles (audit_log.css) */
+/* Typography override for this page to use Poppins brand font */
+body {
+    font-family: "Poppins", var(--font-sans)
+    }
+/* Layout: ensure sidebar + main content alignment */
+main {
+    min-width: 0;
+    /* allow flex item to shrink properly */
+    }
+/* Mobile sidebar behavior using provided #sidebarMain (no structural change) */
+@media (max-width: 991.98px) {
+    #sidebarMain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        transform: translatex(-100%);
+        transition: transform 0.25s ease;
+        z-index: 1045;
+        /* below dropdowns but above content */
+        }
+    #sidebarMain.open {
+        transform: translatex(0)
+        }
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(11, 18, 32, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease;
+        z-index: 1040
+        }
+    .sidebar-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+        backdrop-filter: blur(2px)
+        }
+    }
+/* Table: detail rows */
+#auditTable .detail-row {
+    display: none
+    }
+#auditTable .detail-row.show {
+    display: table-row
+    }
+#auditTable tr.log-row.expanded {
+    background: rgba(0, 0, 0, 0.02)
+    }
+/* Loading overlay */
+#tableLoadingOverlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(1px)
+    }
+/* Sort icons visual cue */
+#auditTable thead th.sortable {
+    user-select: none
+    }
+#auditTable thead th.sortable:hover {
+    text-decoration: underline
+    }
+/* Chart container height */
+#eventsChart {
+    max-height: 280px
+    }
+/* Responsive tweaks */
+@media (max-width: 575.98px) {
+    #resultsSummary {
+        display: none
+        }
+    }

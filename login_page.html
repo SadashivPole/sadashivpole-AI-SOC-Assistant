@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   AI SOC Assistant — Sign In
+  </title>
+  <!-- Brand Typography: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+   <!-- Font Awesome 6 -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+   <!-- SweetAlert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+   </script>
+   <!-- Core site theme -->
+   <link href="style.css" rel="stylesheet"/>
+   <!-- Page-specific CSS -->
+   <link href="login_page.css" rel="stylesheet"/>
+  </link>
+ </head>
+ <body>
+  <!-- Header (kept consistent across pages) -->
+  <header class="navbar navbar-expand-lg navbar-dark" style="background-color:#2563EB;">
+   <div class="container-fluid">
+    <button aria-controls="sidebarMain" class="btn btn-outline-light me-2 d-lg-none" data-bs-target="#sidebarMain" data-bs-toggle="offcanvas" type="button">
+     <i class="fas fa-bars">
+     </i>
+    </button>
+    <a class="navbar-brand d-flex align-items-center" href="./login_page.html">
+     <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/aisoclogo/56/56';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:28px;"/>
+     <span>
+      AI SOC Assistant
+     </span>
+    </a>
+    <div class="d-flex ms-auto align-items-center">
+     <a class="btn btn-sm btn-warning text-dark me-2" href="#help">
+      <i class="fas fa-life-ring me-1">
+      </i>
+      Help
+     </a>
+     <a class="btn btn-sm btn-outline-light me-3" href="#docs">
+      <i class="fas fa-book me-1">
+      </i>
+      Docs
+     </a>
+     <a class="btn btn-sm btn-light" href="./login_page.html">
+      <i class="fas fa-user-lock me-1">
+      </i>
+      Sign In
+     </a>
+    </div>
+   </div>
+  </header>
+  <!-- Main Content -->
+  <main class="container-max py-4">
+   <section class="d-flex align-items-center justify-content-center" style="min-height:70vh;">
+    <div class="login-form-container w-100" style="max-width: 520px;">
+     <!-- Branding -->
+     <div class="text-center mb-3">
+      <img alt="AI SOC Assistant Logo" class="auth-logo rounded-circle shadow-sm mb-2" height="64" onerror="this.onerror=null;this.src='https://picsum.photos/seed/aisoclogo/128/128';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" width="64"/>
+      <div class="brand-title">
+       AI SOC Assistant
+      </div>
+      <div class="text-muted small">
+       Secure Operations Center Access
+      </div>
+     </div>
+     <!-- Info alert / system feedback area -->
+     <div class="alert alert-info d-flex align-items-start" role="alert">
+      <i class="fa-solid fa-circle-info me-2 mt-1">
+      </i>
+      <div>
+       Use the sample credentials at the bottom to test role-based redirects. SSO is available via your enterprise IdP.
+      </div>
+     </div>
+     <!-- Error message display (hidden by default) -->
+     <div aria-live="polite" class="alert alert-danger d-none" id="errorAlert" role="alert">
+     </div>
+     <!-- Authentication form -->
+     <form id="loginForm" novalidate="">
+      <!-- Username -->
+      <div class="mb-3">
+       <label class="form-label" for="username">
+        Username or Email
+       </label>
+       <div class="input-group">
+        <span class="input-group-text">
+         <i class="fa-solid fa-user">
+         </i>
+        </span>
+        <input aria-label="Username" class="form-control" id="username" name="username" placeholder="Enter your username" required="" type="text"/>
+        <div class="invalid-feedback">
+         Please enter your username or email.
+        </div>
+       </div>
+      </div>
+      <!-- Password -->
+      <div class="mb-2">
+       <div class="d-flex justify-content-between align-items-center">
+        <label class="form-label mb-1" for="password">
+         Password
+        </label>
+        <a class="small text-decoration-none" href="#" id="forgotPasswordLink">
+         <i class="fa-regular fa-circle-question me-1">
+         </i>
+         Forgot password?
+        </a>
+       </div>
+       <div class="input-group">
+        <span class="input-group-text">
+         <i class="fa-solid fa-key">
+         </i>
+        </span>
+        <input aria-label="Password" class="form-control password-input-field" id="password" name="password" placeholder="Enter your password" required="" type="password"/>
+        <button aria-label="Toggle password visibility" class="btn btn-light toggle-visibility-icon" id="togglePassword" type="button">
+         <i class="fa-regular fa-eye">
+         </i>
+        </button>
+        <div class="invalid-feedback">
+         Password is required.
+        </div>
+       </div>
+      </div>
+      <!-- Remember me -->
+      <div class="form-check mb-3">
+       <input class="form-check-input" id="rememberMe" type="checkbox" value="1"/>
+       <label class="form-check-label" for="rememberMe">
+        Remember me on this device
+       </label>
+      </div>
+      <!-- Actions -->
+      <div class="d-grid gap-2 mb-2">
+       <button class="btn btn-primary" id="submitBtn" type="submit">
+        <span class="btn-label">
+         <i class="fa-solid fa-right-to-bracket me-2">
+         </i>
+         Log In
+        </span>
+        <span aria-hidden="true" class="spinner-border spinner-border-sm ms-2 d-none" id="submitSpinner" role="status">
+        </span>
+       </button>
+       <button class="btn btn-info" id="ssoBtn" type="button">
+        <i class="fa-solid fa-shield-halved me-2">
+        </i>
+        Log In with SSO
+       </button>
+      </div>
+      <div class="text-muted small">
+       By continuing, you agree to our
+       <a class="text-decoration-none" href="#terms">
+        Terms
+       </a>
+       and
+       <a class="text-decoration-none" href="#privacy">
+        Privacy Policy
+       </a>
+       .
+      </div>
+     </form>
+    </div>
+   </section>
+   <!-- Sample credentials (for demo/testing) -->
+   <section class="mt-4">
+    <div class="card shadow-1">
+     <div class="card-header">
+      <div class="title d-flex align-items-center">
+       <i class="fa-solid fa-flask-vial text-primary me-2">
+       </i>
+       Demo Accounts: Role-based Redirects
+      </div>
+     </div>
+     <div class="card-body">
+      <p class="text-muted mb-3">
+       Use these accounts to test the login flow. Passwords are case-sensitive.
+      </p>
+      <div class="table-responsive">
+       <table class="table table-theme align-middle mb-0">
+        <thead>
+         <tr>
+          <th scope="col">
+           Role
+          </th>
+          <th scope="col">
+           Username
+          </th>
+          <th scope="col">
+           Password
+          </th>
+          <th scope="col">
+           Redirects To
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           <span class="badge-soft info">
+            Analyst
+           </span>
+          </td>
+          <td>
+           <code>
+            analyst1
+           </code>
+          </td>
+          <td>
+           <code>
+            Pass!123
+           </code>
+          </td>
+          <td>
+           <i class="fa-solid fa-arrow-turn-down-right me-1 text-muted">
+           </i>
+           <a class="text-decoration-none" href="./investigation_console.html">
+            investigation_console.html
+           </a>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <span class="badge-soft warning">
+            Manager
+           </span>
+          </td>
+          <td>
+           <code>
+            manager1
+           </code>
+          </td>
+          <td>
+           <code>
+            Pass!123
+           </code>
+          </td>
+          <td>
+           <a class="text-decoration-none" href="./performance_dashboard.html">
+            performance_dashboard.html
+           </a>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <span class="badge-soft success">
+            Auditor
+           </span>
+          </td>
+          <td>
+           <code>
+            auditor1
+           </code>
+          </td>
+          <td>
+           <code>
+            Pass!123
+           </code>
+          </td>
+          <td>
+           <a class="text-decoration-none" href="./audit_log.html">
+            audit_log.html
+           </a>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <span class="badge-soft error">
+            Admin
+           </span>
+          </td>
+          <td>
+           <code>
+            admin1
+           </code>
+          </td>
+          <td>
+           <code>
+            Pass!123
+           </code>
+          </td>
+          <td>
+           <a class="text-decoration-none" href="./admin_settings.html">
+            admin_settings.html
+           </a>
+          </td>
+         </tr>
+         <tr>
+          <td>
+           <span class="badge-soft secondary">
+            SSO (IdP)
+           </span>
+          </td>
+          <td>
+           <code>
+            —
+           </code>
+          </td>
+          <td>
+           <code>
+            —
+           </code>
+          </td>
+          <td>
+           Initiates IdP, then redirects to
+           <a class="text-decoration-none" href="./investigation_console.html">
+            investigation_console.html
+           </a>
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </div>
+   </section>
+  </main>
+  <!-- Footer (consistent across pages) -->
+  <footer class="border-top py-2 px-3 d-flex flex-wrap align-items-center justify-content-between bg-light">
+   <div class="d-flex align-items-center">
+    <img alt="Logo" class="me-2" onerror="this.onerror=null;this.src='https://picsum.photos/seed/aisoclogo/36/36';" src="https://dsaishared.blob.core.windows.net/uxcceleratecontainer/projects/68b23c2b8ecfc2752de0c99b/logos/logo_6f951f7f-9970-428c-b8fb-4f73719ce057.png" style="height:18px;"/>
+    <span class="text-muted small">
+     © 2025 AI SOC Assistant
+    </span>
+   </div>
+   <div class="small">
+    <a class="me-3 text-decoration-none" href="#terms">
+     Terms
+    </a>
+    <a class="me-3 text-decoration-none" href="#privacy">
+     Privacy
+    </a>
+    <a class="text-decoration-none" href="#status">
+     <i class="fas fa-signal me-1" style="color:#F59E0B;">
+     </i>
+     Status
+    </a>
+   </div>
+  </footer>
+  <!-- Bootstrap JS (with Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+  </script>
+  <script>
+   (function() {
+    const form = document.getElementById('loginForm');
+    const usernameEl = document.getElementById('username');
+    const passwordEl = document.getElementById('password');
+    const submitBtn = document.getElementById('submitBtn');
+    const submitSpinner = document.getElementById('submitSpinner');
+    const ssoBtn = document.getElementById('ssoBtn');
+    const errorAlert = document.getElementById('errorAlert');
+    const rememberMe = document.getElementById('rememberMe');
+    const togglePassword = document.getElementById('togglePassword');
+    const forgotLink = document.getElementById('forgotPasswordLink');
+
+    // Demo credential-to-route map
+    const routesByUser = {
+        'analyst1': {
+            password: 'Pass!123',
+            redirect: './investigation_console.html',
+            role: 'Analyst'
+        },
+        'manager1': {
+            password: 'Pass!123',
+            redirect: './performance_dashboard.html',
+            role: 'Manager'
+        },
+        'auditor1': {
+            password: 'Pass!123',
+            redirect: './audit_log.html',
+            role: 'Auditor'
+        },
+        'admin1': {
+            password: 'Pass!123',
+            redirect: './admin_settings.html',
+            role: 'Admin'
+        }
+    };
+
+    // Restore last username if remembered
+    const savedUser = localStorage.getItem('aisoc_last_username');
+    if (savedUser) {
+        usernameEl.value = savedUser;
+        rememberMe.checked = true;
+    }
+
+    // Toggle password visibility
+    togglePassword.addEventListener('click', () => {
+        const isPw = passwordEl.getAttribute('type') === 'password';
+        passwordEl.setAttribute('type', isPw ? 'text' : 'password');
+        togglePassword.innerHTML = isPw ? '<i class="fa-regular fa-eye-slash"></i>' : '<i class="fa-regular fa-eye"></i>';
+        passwordEl.focus();
+    });
+
+    // Enable/disable submit by input content
+    function updateSubmitState() {
+        const canSubmit = usernameEl.value.trim().length > 0 && passwordEl.value.trim().length > 0;
+        submitBtn.disabled = !canSubmit;
+    }
+    usernameEl.addEventListener('input', updateSubmitState);
+    passwordEl.addEventListener('input', updateSubmitState);
+    updateSubmitState();
+
+    // Forgot password handler
+    forgotLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'info',
+            title: 'Password reset',
+            text: 'Password resets are managed by your Identity Provider (IdP). Please contact your IT service desk or use the corporate self-service portal.',
+            confirmButtonText: 'Got it',
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-primary') || '#2563EB'
+        });
+    });
+
+    // Helpers
+    function setLoading(isLoading) {
+        if (isLoading) {
+            submitSpinner.classList.remove('d-none');
+            submitBtn.disabled = true;
+            ssoBtn.disabled = true;
+            usernameEl.disabled = true;
+            passwordEl.disabled = true;
+            rememberMe.disabled = true;
+        } else {
+            submitSpinner.classList.add('d-none');
+            ssoBtn.disabled = false;
+            usernameEl.disabled = false;
+            passwordEl.disabled = false;
+            rememberMe.disabled = false;
+            updateSubmitState();
+        }
+    }
+
+    function showError(msg) {
+        errorAlert.textContent = msg;
+        errorAlert.classList.remove('d-none');
+        Swal.fire({
+            icon: 'error',
+            title: 'Authentication failed',
+            text: msg,
+            confirmButtonText: 'Retry',
+            confirmButtonColor: getComputedStyle(document.documentElement).getPropertyValue('--color-primary') || '#2563EB'
+        });
+    }
+
+    function clearError() {
+        errorAlert.textContent = '';
+        errorAlert.classList.add('d-none');
+        usernameEl.classList.remove('is-invalid');
+        passwordEl.classList.remove('is-invalid');
+    }
+
+    // Form submit
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        clearError();
+
+        const u = usernameEl.value.trim();
+        const p = passwordEl.value.trim();
+
+        if (!u) {
+            usernameEl.classList.add('is-invalid');
+        }
+        if (!p) {
+            passwordEl.classList.add('is-invalid');
+        }
+        if (!u || !p) {
+            showError('Please provide both username and password.');
+            return;
+        }
+
+        setLoading(true);
+        setTimeout(() => {
+            const match = routesByUser[u];
+            if (match && match.password === p) {
+                // Remember username if requested
+                if (rememberMe.checked) {
+                    localStorage.setItem('aisoc_last_username', u);
+                } else {
+                    localStorage.removeItem('aisoc_last_username');
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: `Welcome ${match.role}!`,
+                    text: 'Authentication successful. Redirecting…',
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+                setTimeout(() => {
+                    window.location.href = match.redirect;
+                }, 900);
+            } else {
+                passwordEl.value = '';
+                passwordEl.classList.add('is-invalid');
+                showError('Invalid username or password.');
+                setLoading(false);
+                passwordEl.focus();
+            }
+        }, 800); // simulate network latency
+    });
+
+    // SSO
+    ssoBtn.addEventListener('click', () => {
+        clearError();
+        setLoading(true);
+        Swal.fire({
+            title: 'Redirecting to Identity Provider…',
+            html: '<div class="mt-2">Initiating SSO (OIDC/SAML) flow.</div>',
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+
+        setTimeout(() => {
+            // Simulate IdP login and callback to investigation console
+            window.location.href = './investigation_console.html';
+        }, 1200);
+    });
+})();
+  </script>
+ </body>
+</html>

@@ -1,0 +1,16 @@
+cd ~/Downloads/sadashivpole-AI-SOC-Assistant
+
+# create folders
+mkdir -p ui assets
+
+# move all html/css files into ui/
+# if this prints an error because you already have subfolders, skip the mv
+mv *.html *.css ui/ 2>/dev/null || true
+
+# (optional) if you have a screenshot on your machine, copy it into assets:
+# cp /path/to/your/screenshot.png assets/interface.png
+
+# show new layout
+ls -la
+ls -la ui
+ls -la assets
